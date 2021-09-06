@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Rumah Finder</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <div class="container-md">
+      <a class="navbar-brand" href="/admin">Admin Rumah Finder</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class=" navbar-nav">
+          <a class="nav-link" href="/admin">Iklan</a>
+          <a class="nav-link" href="/admin/messages">Messages</a>
+          <a class="nav-link" href="/admin/profile">Profile</a>
+        </div>
+      </div>
+    </div>
+    <span id="userinfo" class="navbar-text mx-3">
+    </span>
+    <button id="signout" class=" mx-3 btn btn-outline-success" style="width:150px">Sign Out</button>
+  </nav>
+  <div class="px-3 py-3">
+    <h2>Daftar Iklan Rumah</h2>
+    <hr>
+    <div id="filterform" class="container">
+      <h3>Filters</h3>
+      <form id="browse">
+        <div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkid">
+                <label class="form-check-label" for="ID">ID</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="id" step="1" placeholder="ID">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkstring">
+                <label class="form-check-label" for="String">String</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="text" name="string" placeholder="String">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkinteger">
+                <label class="form-check-label" for="Integer">Integer</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="integer" placeholder="Integer">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkfloat">
+                <label class="form-check-label" for="Float">Float</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="float" step="any" placeholder="Float">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkdate">
+                <label class="form-check-label" for="Date">Date</label>
+              </div>
+              <div class="container">
+                <div>
+                  <input class="form-control" type="date" name="startdate">
+                  <p>to</p>
+                  <input class="form-control" type="date" name="enddate">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkboolean">
+                <label class="form-check-label" for="Boolean">Boolean</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputBoolean" name="boolean">
+                  <option disabled selected> Choose the boolean ...</option>
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="container mt-3">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              <div>ID</div>
+              <div>
+                <button id="idASC" class="arrow arrow-up"></button>
+                <button id="idDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th>
+              <div>String</div>
+              <div>
+                <button id="stringASC" class="arrow arrow-up"></button>
+                <button id="stringDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th>
+              <div>Integer</div>
+              <div>
+                <button id="integerASC" class="arrow arrow-up"></button>
+                <button id="integerDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th>
+              <div>Float</div>
+              <div>
+                <button id="floatASC" class="arrow arrow-up"></button>
+                <button id="floatDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th>
+              <div>Date</div>
+              <div>
+                <button id="dateASC" class="arrow arrow-up"></button>
+                <button id="dateDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th>
+              <div>Boolean</div>
+            </th>
+            <th>
+              <div>Actions</div>
+            </th>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tdata">
+        </tbody>
+      </table>
+      <nav>
+        <p id="pagenumber"></p>
+        <p id="filters"></p>
+        <p id="sortp"></p>
+        <p id="sortr"></p>
+        <ul id="page" class="pagination mt-2">
+        </ul>
+      </nav>
+      <button id="addbutton" class="btn btn-primary" type="button">Add</button>
+    </div>
+  </div>
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+    $.ajax({
+      url: '/admin/login/userinfo',
+      method: 'GET',
+    }).done((res) => {
+      $('#userinfo').html(res.firstName)
+    })
+    $('#signout').click(() => {
+      $.ajax({
+        url: '/admin/login/logout',
+        method: 'GET',
+      }).done((res) => {
+        window.location.href = 'admin/login'
+      })
+    })
+  </script>
+
+</body>
+
+</html>
