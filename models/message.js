@@ -22,8 +22,14 @@ module.exports = (sequelize, DataTypes) => {
   };
   Message.init({
     message: DataTypes.TEXT,
-    UserId: DataTypes.INTEGER,
-    HouseId: DataTypes.INTEGER
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    HouseId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Message',
