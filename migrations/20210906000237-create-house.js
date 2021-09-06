@@ -122,7 +122,9 @@ module.exports = {
           },
           key: 'id',
           as: 'UserId'
-        }
+        },
+        allowNull: false,
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

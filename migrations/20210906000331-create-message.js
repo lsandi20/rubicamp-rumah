@@ -20,7 +20,9 @@ module.exports = {
           },
           key: 'id',
           as: 'UserId'
-        }
+        },
+        allowNull: false,
+        onDelete: 'CASCADE'
       },
       HouseId: {
         type: Sequelize.INTEGER,
@@ -31,7 +33,9 @@ module.exports = {
           },
           key: 'id',
           as: 'HouseId'
-        }
+        },
+        allowNull: false,
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

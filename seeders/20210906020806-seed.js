@@ -23,7 +23,6 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }], { returning: ['id'] })
-
     let houseid = await queryInterface.bulkInsert('Houses', [{
       name: 'Rumah Minimalis',
       type: 50,
@@ -51,23 +50,24 @@ module.exports = {
       ceiling: 'Gypsum',
       roof: 'Rangka Baja Ringan',
       electricity: 1000,
-      UserId: adminid.id,
+      UserId: adminid[0].id,
       createdAt: new Date(),
       updatedAt: new Date()
     }], { returning: ['id'] })
+
     await queryInterface.bulkInsert('Messages', [
       {
         message: 'Apakah bisa digali sumur bor?',
-        UserId: userid.id,
-        HouseId: houseid.id,
+        UserId: userid[0].id,
+        HouseId: houseid[0].id,
         createdAt: new Date(),
         updatedAt: new Date()
       }])
     await queryInterface.bulkInsert('Messages', [
       {
         message: 'Bisa',
-        UserId: adminid.id,
-        HouseId: houseid.id,
+        UserId: adminid[0].id,
+        HouseId: houseid[0].id,
         createdAt: new Date(),
         updatedAt: new Date()
       }])
