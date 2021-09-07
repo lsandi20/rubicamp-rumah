@@ -32,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     lastName: DataTypes.STRING(50),
-    role: {
-      type: DataTypes.STRING(10),
-      allowNull: false
-    },
     phone: DataTypes.STRING(20)
   }, {
     sequelize,

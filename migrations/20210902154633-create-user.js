@@ -23,10 +23,6 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING(50)
       },
-      role: {
-        allowNull: false,
-        type: Sequelize.STRING(10)
-      },
       phone: {
         type: Sequelize.STRING(20)
       },
