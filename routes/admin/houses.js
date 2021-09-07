@@ -7,7 +7,7 @@ module.exports = function (dirname) {
   var fs = require('fs');
   var path = require('path');
 
-  router.get('/', function (req, res, next) {
+  router.get('/', helpers.isLoggedIn, function (req, res, next) {
     let url = req.originalUrl.split('/admin/houses').pop().split('?').pop();
     let sort = {
       prop: '',
@@ -93,11 +93,11 @@ module.exports = function (dirname) {
 
   });
 
-  router.get('/add', (req, res, next) => {
+  router.get('/add', helpers.isLoggedIn, (req, res, next) => {
     res.render('admin/form');
   })
 
-  router.post('/add', (req, res, next) => {
+  router.post('/add', helpers.isLoggedIn, (req, res, next) => {
     let data = req.body;
     let files = [];
     let promiseArray = [];
@@ -139,7 +139,7 @@ module.exports = function (dirname) {
     })
   })
 
-  router.delete('/delete/:id', (req, res) => {
+  router.delete('/delete/:id', helpers.isLoggedIn, (req, res) => {
     models.House.findOne({
       attributes: ['images'],
       where: {
@@ -168,5 +168,116 @@ module.exports = function (dirname) {
       res.status(500).json(err)
     })
   })
+
+  router.get('/edit/:id', helpers.isLoggedIn, (req, res, next) => {
+    models.House.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then((result) => {
+      res.json(result);
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  })
+
+  router.post('/edit/:id', helpers.isLoggedIn, (req, res, next) => {
+    let data = req.body;
+    let files = [];
+    if (data.previousFile) {
+      if (Array.isArray(data.previousFile)) {
+        data.previousFile.forEach((f) => {
+          files.push(f);
+        })
+      } else {
+        files.push(data.previousFile)
+      }
+    }
+    if (data.deletedFile) {
+      if (Array.isArray(data.deletedFile)) {
+        data.deletedFile.forEach((f) => {
+          f = JSON.parse(f)
+          try {
+            fs.unlinkSync(`${dirname}/public${f.path}`);
+          } catch (error) {
+            console.error('file not found');
+          }
+        })
+      } else {
+        data.deletedFile = JSON.parse(data.deletedFile)
+        try {
+          fs.unlinkSync(`${dirname}/public${data.deletedFile.path}`);
+        } catch (error) {
+          console.error('file not found');
+        }
+      }
+    }
+    let promiseArray = [];
+    if (req.files !== null) {
+      if (Array.isArray(req.files.images)) {
+        req.files.images.forEach((f) => {
+          let filename = `${Date.now()}${f.name}`
+          let fileuri = path.join(dirname, 'public/files', filename)
+          files.push({ name: f.name, type: f.mimetype, path: `/files/${filename}` })
+          promiseArray.push(f.mv(fileuri))
+        })
+      } else {
+        let f = req.files.images
+        let filename = `${Date.now()}${f.name}`
+        let fileuri = path.join(dirname, 'public/files', filename)
+        files.push({ name: f.name, type: f.mimetype, path: `/files/${filename}` })
+        promiseArray.push(f.mv(fileuri))
+      }
+    }
+    Promise.all(promiseArray).then(() => {
+      if (!Array.isArray(data.wall)) {
+        data.wall = [data.wall]
+      }
+      if (!Array.isArray(data.sanitary)) {
+        data.sanitary = [data.sanitary]
+      }
+      models.House.update({
+        name: data.name,
+        type: data.type,
+        price: data.price,
+        landarea: data.landarea,
+        certificate: data.certificate,
+        address: data.address,
+        lat: data.lat,
+        long: data.long,
+        numfloor: data.numfloor,
+        bedroom: data.bedroom,
+        bathroom: data.bathroom,
+        carport: data.carport,
+        garden: data.garden,
+        kitchen: data.kitchen,
+        yard: data.yard,
+        livingroom: data.livingroom,
+        diningroom: data.diningroom,
+        foundation: data.foundation,
+        wall: data.wall,
+        floortype: data.floortype,
+        floorlength: data.floorlength,
+        sanitary: data.sanitary,
+        jamb: data.jamb,
+        ceiling: data.ceiling,
+        roof: data.roof,
+        electricity: data.electricity,
+        images: files.length > 0 ? files : null
+      },
+        {
+          where: {
+            id: req.params.id
+          }
+        }).then(() => {
+          res.json({ message: "Success" })
+        }).catch(err => {
+          res.status(500).json(err)
+        })
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  })
+
   return router;
 }
