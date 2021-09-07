@@ -25,6 +25,8 @@ router.post('/auth', function (req, res, next) {
     } else {
       return res.status(404).json({ message: 'Password not match' })
     }
+  }).catch(err => {
+    res.status(500).json(err)
   })
 })
 
@@ -34,7 +36,6 @@ router.get('/userinfo', function (req, res, next) {
   } else {
     return res.status(401).json({ message: 'Unauthorized' })
   }
-
 });
 
 router.get('/logout', function (req, res, next) {
