@@ -139,5 +139,17 @@ module.exports = function (dirname) {
     })
   })
 
+  router.delete('/delete/:id', (req, res) => {
+    models.House.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(() => {
+      res.json({ message: 'Success' })
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  })
+
   return router;
 }
