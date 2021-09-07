@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Rumah Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-lg bg-secondary">
+    <div class="container-md">
+      <a class="navbar-brand" href="/admin" style="font-family:Oswald"><img style="height: 25px;"
+          src="/images/logowhite.png">RumahFinder</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class=" navbar-nav">
+          <a class="nav-link" href="/admin">Iklan</a>
+          <a class="nav-link" href="/admin/messages">Messages</a>
+          <a class="nav-link active" href="/admin/profile" aria-current="page">Profile</a>
+        </div>
+      </div>
+    </div>
+    <span id="userinfo" class="navbar-text mx-3">
+    </span>
+    <button id="signout" class=" mx-3 btn btn-success" style="width:150px">Sign Out</button>
+  </nav>
+  <div class="alert show w-25 float-end mb-0 mt-1" style="display: none;" role="alert">
+
+  </div>
+  <div class="px-3 py-3">
+    <h2> Profile</h2>
+    <hr>
+    <div id="filterform" class="container py-3">
+      <form action="/admin/profile" method="POST" id="profileform">
+        <div>
+          <div class="d-flex flex-row mb-3">
+            <div class="container w-25">
+              <label class="form-label" for="Email">Email</label>
+            </div>
+            <div class="container">
+              <input class="form-control" id="email" type="email" name="email" step="1" placeholder="Email" value=""
+                disabled>
+            </div>
+          </div>
+          <div class="d-flex flex-row mb-3">
+            <div class="container w-25">
+              <label class="form-label" for="Password">Password</label>
+            </div>
+            <div class="container">
+              <input class="form-control" id="password" type="password" name="password" placeholder="Password">
+            </div>
+          </div>
+          <div class="d-flex flex-row mb-3">
+            <div class="container w-25">
+              <label class="form-label" for="First Name">First Name</label>
+            </div>
+            <div class="container">
+              <input class="form-control" id="firstname" type="text" name="firstName" placeholder="First Name" value="">
+            </div>
+          </div>
+          <div class="d-flex flex-row mb-3">
+            <div class="container w-25">
+              <label class="form-label" for="Last Name">Last Name</label>
+            </div>
+            <div class="container">
+              <input class="form-control" id="lastname" type="text" name="lastName" placeholder="Last Name" value="">
+            </div>
+          </div>
+          <div class="d-flex flex-row mb-3">
+            <div class="container w-25">
+              <label class="form-label" for="Phone">Phone</label>
+            </div>
+            <div class="container">
+              <input class="form-control" id="phone" type="text" name="phone" placeholder="Phone" value="">
+            </div>
+          </div>
+        </div>
+        <a class="btn btn-secondary" href="/admin" type="submit">Back</a>
+        <button class="btn btn-primary" type="submit" id="saveform">Save</button>
+    </div>
+    </form>
+  </div>
+
+
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+    $.ajax({
+      url: '/admin/login/userinfo',
+      method: 'GET',
+    }).done((res) => {
+      $('#userinfo').html(res.firstName)
+    })
+
+    $.ajax({
+      url: '/admin/profileinfo',
+      method: 'GET',
+    }).done((res) => {
+      $('#email').val(res.email)
+      $('#firstname').val(res.firstName)
+      $('#lastname').val(res.lastName)
+      $('#phone').val(res.phone)
+    })
+
+    $('#signout').click(() => {
+      $.ajax({
+        url: '/admin/login/logout',
+        method: 'GET',
+      }).done((res) => {
+        window.location.href = '/admin/login'
+      })
+    })
+
+    $('#saveform').click((event) => {
+      event.preventDefault()
+      let data = JSON.stringify({
+        firstName: $('#firstname').val(),
+        lastName: $('#lastname').val(),
+        phone: $('#phone').val(),
+        password: $('#password').val()
+      });
+      $.ajax({
+        data,
+        url: '/admin/profile',
+        method: 'PUT',
+        contentType: 'application/json'
+      }).done(() => {
+        $('.alert').removeClass('alert-danger').addClass('alert-success').html('Berhasil mengubah profil').toggle('slow').delay(1000).toggle('slow')
+      }).fail(() => {
+        $('.alert').removeClass('alert-success').addClass('alert-danger').html('Terjadi kesalahan, gagal mengubah profil').toggle('slow').delay(1000).toggle('slow')
+      })
+    })
+  </script>
+
+</body>
+
+</html>
