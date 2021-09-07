@@ -140,16 +140,33 @@ module.exports = function (dirname) {
   })
 
   router.delete('/delete/:id', (req, res) => {
-    models.House.destroy({
+    models.House.findOne({
+      attributes: ['images'],
       where: {
         id: req.params.id
       }
-    }).then(() => {
-      res.json({ message: 'Success' })
+    }).then((result) => {
+      models.House.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(() => {
+        if (result.images !== null) {
+          result.images.forEach((f) => {
+            try {
+              fs.unlinkSync(`${dirname}/public${f.path}`);
+            } catch (error) {
+              console.error('file not found');
+            }
+          })
+        }
+        res.json({ message: 'Success' })
+      }).catch(err => {
+        res.status(500).json(err)
+      })
     }).catch(err => {
       res.status(500).json(err)
     })
   })
-
   return router;
 }
