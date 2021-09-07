@@ -4,6 +4,8 @@ module.exports = function (dirname) {
   var router = express.Router();
   const models = require('../../models/index')
   const { Op } = require('sequelize')
+  var fs = require('fs');
+  var path = require('path');
 
   router.get('/', function (req, res, next) {
     let url = req.originalUrl.split('/admin/houses').pop().split('?').pop();
@@ -90,5 +92,52 @@ module.exports = function (dirname) {
     })
 
   });
+
+  router.get('/add', (req, res, next) => {
+    res.render('admin/form');
+  })
+
+  router.post('/add', (req, res, next) => {
+    let data = req.body;
+    let files = [];
+    let promiseArray = [];
+    if (req.files !== null) {
+      if (Array.isArray(req.files.images)) {
+        req.files.images.forEach((f) => {
+          let filename = `${Date.now()}${f.name}`
+          let fileuri = path.join(dirname, 'public/files', filename)
+          if (f.mimetype.includes('image')) {
+            files.push({ name: f.name, type: f.mimetype, path: `/files/${filename}` })
+            promiseArray.push(f.mv(fileuri))
+          }
+        })
+      } else {
+        let f = req.files.images
+        let filename = `${Date.now()}${f.name}`
+        let fileuri = path.join(dirname, 'public/files', filename)
+        if (f.mimetype.includes('image')) {
+          files.push({ name: f.name, type: f.mimetype, path: `/files/${filename}` })
+          promiseArray.push(f.mv(fileuri))
+        }
+      }
+    }
+    Promise.all(promiseArray).then(() => {
+      data.images = files.length > 0 ? files : null
+      if (!Array.isArray(data.wall)) {
+        data.wall = [data.wall]
+      }
+      if (!Array.isArray(data.sanitary)) {
+        data.sanitary = [data.sanitary]
+      }
+      models.House.create(data).then(() => {
+        res.json({ message: 'Success' })
+      }).catch(err => {
+        res.status(500).json(err)
+      })
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  })
+
   return router;
 }
