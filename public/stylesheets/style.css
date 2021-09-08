@@ -12,12 +12,32 @@ body {
 a {
   color: #00B7FF;
 }
+
+table {
+  table-layout: fixed;
+  width: 100%
+}
+.th-sm {
+  width: 70px;
+}
+
+.th-md {
+  width: 150px;
+}
+
+.th-lg {
+  width: 200px;
+}
+
+.th-xl {
+  width: 300px;
+}
 th >div {
   display: inline-block;
 }
 
 div > .arrow {
-  display: block
+  display: block;
 }
 
 .arrow {

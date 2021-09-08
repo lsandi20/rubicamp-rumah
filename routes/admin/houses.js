@@ -19,7 +19,7 @@ module.exports = function (dirname) {
     } else {
       sort.prop = req.query.sortp;
       sort.rule = req.query.sortr;
-      url = url.split(`&sortp=${req.query.sortp}&sortr=${req.query.sortr}`).shift();
+      url = url.split(`&sortp=${req.query.sortp}&sortr=${req.query.sortr}`).join('')
     }
     url = url.split(`page=${req.query.page}`);
     while (url.length > 1) {
@@ -94,7 +94,7 @@ module.exports = function (dirname) {
   });
 
   router.get('/add', helpers.isLoggedIn, (req, res, next) => {
-    res.render('admin/form');
+    res.render('admin/add');
   })
 
   router.post('/add', helpers.isLoggedIn, (req, res, next) => {
