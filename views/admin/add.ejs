@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Admin Rumah Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-lg bg-secondary">
+    <div class="container-md">
+      <a class="navbar-brand" href="/admin" style="font-family:Oswald"><img style="height: 25px;"
+          src="/images/logowhite.png">RumahFinder</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <div class=" navbar-nav">
+          <a class="nav-link" href="/admin">Iklan</a>
+          <a class="nav-link" href="/admin/messages">Messages</a>
+          <a class="nav-link active" href="/admin/profile" aria-current="page">Profile</a>
+        </div>
+      </div>
+    </div>
+    <span id="userinfo" class="navbar-text mx-3">
+    </span>
+    <button id="signout" class=" mx-3 btn btn-success" style="width:150px">Sign Out</button>
+  </nav>
+  <div class="alert show w-25 float-end mb-0 mt-1" style="display: none;" role="alert">
+
+  </div>
+  <div class="px-3 py-3">
+    <h2>Tambah Rumah</h2>
+    <hr>
+    <div id="filterform" class="container py-3">
+      <form action="" method="POST" id="fillform">
+        <input type="number" id="UserId" name="UserId" hidden>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Name">Nama</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="text" id="name" name="name" placeholder="Nama" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="type">Tipe</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="type" name="type" placeholder="Tipe" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="price">Harga</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="price" name="price" placeholder="Harga" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="landarea">Luas Tanah</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="landarea" name="landarea" placeholder="Luas Tanah" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Sertifikat">Sertifikat</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="text" id="certificate" name="certificate" placeholder="Sertifikat"
+              required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Address">Address</label>
+          </div>
+          <div class="container">
+            <textarea class="form-control" type="text" id="address" name="address" placeholder="Address"
+              required></textarea>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Latitude">Latitude</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="lat" name="lat" step="any" placeholder="Latitude" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Longitude">Longitude</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="long" name="long" step="any" placeholder="Longitude" required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="numfloor">Jumlah Lantai</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="numfloor" name="numfloor" placeholder="Jumlah Lantai"
+              required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="bedroom">Jumlah Kamar Tidur</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="bedroom" name="bedroom" placeholder="Jumlah Kamar Tidur"
+              required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="bathroom">Jumlah Kamar Mandi</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="bathroom" name="bathroom" placeholder="Jumlah Kamar Mandi"
+              required>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Garasi">Garasi</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputcarport" id="carport" name="carport" required>
+              <option disabled selected> Pilih Opsi Garasi ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Dapur">Dapur</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputkitchen" id="kitchen" name="kitchen" required>
+              <option disabled selected> Pilih Opsi Dapur ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Kebun">Kebun</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputgarden" id="garden" name="garden" required>
+              <option disabled selected> Pilih Opsi Kebun ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Halaman">Halaman</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputyard" id="yard" name="yard" required>
+              <option disabled selected> Pilih Opsi Halaman ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Ruang Tamu">Ruang Tamu</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputlivingroom" id="livingroom" name="livingroom" required>
+              <option disabled selected> Pilih Opsi Ruang Tamu ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Ruang Makan">Ruang Makan</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputdiningroom" id="diningroom" name="diningroom" required>
+              <option disabled selected> Pilih Opsi Ruang Makan ...</option>
+              <option value="true">Ada</option>
+              <option value="false">Tidak ada</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Pondasi">Pondasi</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputfoundation" id="foundation" name="foundation">
+              <option disabled selected> Pilih Opsi Pondasi ...</option>
+              <option value="Cakar Ayam">Cakar Ayam</option>
+              <option value="Raft">Raft</option>
+              <option value="Tapak">Tapak</option>
+              <option value="Tiang">Tiang</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Dinding">Dinding</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputwall" id="wall" name="wall" multiple>
+              <option disabled selected> Pilih Opsi Dinding ...</option>
+              <option value="Bata Ringan">Bata Ringan</option>
+              <option value="Plaster">Plaster</option>
+              <option value="Bata Berat">Bata Berat</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Jenis Lantai">Jenis Lantai</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputfloortype" id="floortype" name="floortype">
+              <option disabled selected> Pilih Opsi Jenis Lantai ...</option>
+              <option value="Keramik">Keramik</option>
+              <option value="Ubin">Ubin</option>
+              <option value="Tanah">Tanah</option>
+              <option value="Kayu">Kayu</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="floorlength">Ukuran Lantai</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="floorlength" name="floorlength" placeholder="Ukuran Lantai">
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Sanitasi">Sanitasi</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputsanitary" id="sanitary" name="sanitary" multiple>
+              <option disabled selected> Pilih Opsi Sanitasi ...</option>
+              <option value="Closet Duduk">Closet Duduk</option>
+              <option value="Closet Jongkok">Closet Jongkok</option>
+              <option value="Shower">Shower</option>
+              <option value="Bathub">Bathub</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Kusen">Kusen</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputjamb" id="jamb" name="jamb">
+              <option disabled selected> Pilih Opsi Kusen ...</option>
+              <option value="Plastik">Plastik</option>
+              <option value="Kayu">Kayu</option>
+              <option value="Alumunium">Alumunium</option>
+              <option value="Beton">Beton</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Plafon">Plafon</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputceiling" id="ceiling" name="ceiling">
+              <option disabled selected> Pilih Opsi Plafon ...</option>
+              <option value="Gypsum">Gypsum</option>
+              <option value="Triplek">Triplek</option>
+              <option value="Baja">Baja</option>
+              <option value="Granit">Granit</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="Atap">Atap</label>
+          </div>
+          <div class="container">
+            <select class="form-control" id="inputroof" id="roof" name="roof">
+              <option disabled selected> Pilih Opsi Atap ...</option>
+              <option value="Rangka Baja Ringan">Rangka Baja Ringan</option>
+              <option value="Rangka Kayu">Rangka Kayu</option>
+              <option value="Seng">Seng</option>
+            </select>
+          </div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="container w-25">
+            <label class="form-check-label" for="electricity">Listrik</label>
+          </div>
+          <div class="container">
+            <input class="form-control" type="number" id="electricity" name="electricity" placeholder="Listrik">
+          </div>
+        </div>
+        <a class="btn btn-secondary" href="/admin" type="submit">Back</a>
+        <button class="btn btn-primary" type="submit" id="saveform">Save</button>
+    </div>
+    </form>
+  </div>
+
+
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(() => {
+      $.ajax({
+        url: '/admin/login/userinfo',
+        method: 'GET',
+      }).done((res) => {
+        $('#userinfo').html(res.firstName)
+        $('#UserId').val(res.id)
+      })
+    })
+
+    $('#signout').click(() => {
+      $.ajax({
+        url: '/admin/login/logout',
+        method: 'GET',
+      }).done((res) => {
+        window.location.href = '/admin/login'
+      })
+    })
+
+    $('#fillform').submit(function (event) {
+      event.preventDefault();
+      let formdata = new FormData($(this).get(0))
+      let url = 'add';
+      let method = 'POST';
+      $.ajax({
+        data: formdata,
+        url: url,
+        method: method,
+        processData: false,
+        contentType: false
+      }).done(() => {
+        console.log('success')
+      })
+    })
+
+  </script>
+
+</body>
+
+</html>
