@@ -123,11 +123,17 @@ module.exports = function (dirname) {
     }
     Promise.all(promiseArray).then(() => {
       data.images = files.length > 0 ? files : null
-      if (!Array.isArray(data.wall)) {
+      if (data.wall && !Array.isArray(data.wall)) {
         data.wall = [data.wall]
       }
-      if (!Array.isArray(data.sanitary)) {
+      if (data.sanitary && !Array.isArray(data.sanitary)) {
         data.sanitary = [data.sanitary]
+      }
+      if (!data.floorlength) {
+        data.floorlength = null
+      }
+      if (!data.electricity) {
+        data.electricity = null
       }
       models.House.create(data).then(() => {
         res.json({ message: 'Success' })
