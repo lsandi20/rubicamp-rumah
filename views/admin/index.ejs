@@ -3,22 +3,26 @@
 
 <head>
   <title>Admin Rumah Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body>
-  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+  <nav class="navbar navbar-dark navbar-expand-lg bg-secondary">
     <div class="container-md">
-      <a class="navbar-brand" href="/admin">Admin Rumah Finder</a>
+      <a class="navbar-brand" href="/admin" style="font-family:Oswald"><img style="height: 25px;"
+          src="/images/logowhite.png">RumahFinder</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
         aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class=" navbar-nav">
-          <a class="nav-link" href="/admin">Iklan</a>
+          <a class="nav-link active" href="/admin" aria-current="page">Iklan</a>
           <a class="nav-link" href="/admin/messages">Messages</a>
           <a class="nav-link" href="/admin/profile">Profile</a>
         </div>
@@ -26,7 +30,7 @@
     </div>
     <span id="userinfo" class="navbar-text mx-3">
     </span>
-    <button id="signout" class=" mx-3 btn btn-outline-success" style="width:150px">Sign Out</button>
+    <button id="signout" class=" mx-3 btn btn-success" style="width:150px">Sign Out</button>
   </nav>
   <div class="px-3 py-3">
     <h2>Daftar Iklan Rumah</h2>
@@ -49,63 +53,351 @@
           <div class="form-check">
             <div class="d-flex flex-row mb-3">
               <div class="container w-25">
-                <input type="checkbox" class="form-check-input" name="checkstring">
-                <label class="form-check-label" for="String">String</label>
+                <input type="checkbox" class="form-check-input" name="checkname">
+                <label class="form-check-label" for="Name">Nama</label>
               </div>
               <div class="container">
-                <input class="form-control" type="text" name="string" placeholder="String">
+                <input class="form-control" type="text" name="name" placeholder="Nama">
               </div>
             </div>
           </div>
           <div class="form-check">
             <div class="d-flex flex-row mb-3">
               <div class="container w-25">
-                <input type="checkbox" class="form-check-input" name="checkinteger">
-                <label class="form-check-label" for="Integer">Integer</label>
+                <input type="checkbox" class="form-check-input" name="checktype">
+                <label class="form-check-label" for="type">Tipe</label>
               </div>
               <div class="container">
-                <input class="form-control" type="number" name="integer" placeholder="Integer">
+                <input class="form-control" type="number" name="type" placeholder="Tipe">
               </div>
             </div>
           </div>
           <div class="form-check">
             <div class="d-flex flex-row mb-3">
               <div class="container w-25">
-                <input type="checkbox" class="form-check-input" name="checkfloat">
-                <label class="form-check-label" for="Float">Float</label>
+                <input type="checkbox" class="form-check-input" name="checkprice">
+                <label class="form-check-label" for="price">Harga</label>
               </div>
               <div class="container">
-                <input class="form-control" type="number" name="float" step="any" placeholder="Float">
+                <input class="form-control" type="number" name="price" placeholder="Harga">
               </div>
             </div>
           </div>
           <div class="form-check">
             <div class="d-flex flex-row mb-3">
               <div class="container w-25">
-                <input type="checkbox" class="form-check-input" name="checkdate">
-                <label class="form-check-label" for="Date">Date</label>
+                <input type="checkbox" class="form-check-input" name="checklandarea">
+                <label class="form-check-label" for="landarea">Luas Tanah</label>
               </div>
               <div class="container">
-                <div>
-                  <input class="form-control" type="date" name="startdate">
-                  <p>to</p>
-                  <input class="form-control" type="date" name="enddate">
-                </div>
+                <input class="form-control" type="number" name="landarea" placeholder="Luas Tanah">
               </div>
             </div>
           </div>
           <div class="form-check">
             <div class="d-flex flex-row mb-3">
               <div class="container w-25">
-                <input type="checkbox" class="form-check-input" name="checkboolean">
-                <label class="form-check-label" for="Boolean">Boolean</label>
+                <input type="checkbox" class="form-check-input" name="checkcertificate">
+                <label class="form-check-label" for="Sertifikat">Sertifikat</label>
               </div>
               <div class="container">
-                <select class="form-control" id="inputBoolean" name="boolean">
-                  <option disabled selected> Choose the boolean ...</option>
-                  <option value="true">true</option>
-                  <option value="false">false</option>
+                <input class="form-control" type="text" name="certificate" placeholder="Sertifikat">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkaddress">
+                <label class="form-check-label" for="Address">Address</label>
+              </div>
+              <div class="container">
+                <textarea class="form-control" type="text" name="address" placeholder="Address"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checklat">
+                <label class="form-check-label" for="Latitude">Latitude</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="lat" step="any" placeholder="Latitude">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checklong">
+                <label class="form-check-label" for="Longitude">Longitude</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="long" step="any" placeholder="Longitude">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checknumfloor">
+                <label class="form-check-label" for="numfloor">Jumlah Lantai</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="numfloor" placeholder="Jumlah Lantai">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkbedroom">
+                <label class="form-check-label" for="bedroom">Jumlah Kamar Tidur</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="bedroom" placeholder="Jumlah Kamar Tidur">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkbathroom">
+                <label class="form-check-label" for="bathroom">Jumlah Kamar Mandi</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="bathroom" placeholder="Jumlah Kamar Mandi">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkcarport">
+                <label class="form-check-label" for="Garasi">Garasi</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputcarport" name="carport">
+                  <option disabled selected> Pilih Opsi Garasi ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
                 </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkkitchen">
+                <label class="form-check-label" for="Dapur">Dapur</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputkitchen" name="kitchen">
+                  <option disabled selected> Pilih Opsi Dapur ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkgarden">
+                <label class="form-check-label" for="Kebun">Kebun</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputgarden" name="garden">
+                  <option disabled selected> Pilih Opsi Kebun ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkyard">
+                <label class="form-check-label" for="Halaman">Halaman</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputyard" name="yard">
+                  <option disabled selected> Pilih Opsi Halaman ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checklivingroom">
+                <label class="form-check-label" for="Ruang Tamu">Ruang Tamu</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputlivingroom" name="livingroom">
+                  <option disabled selected> Pilih Opsi Ruang Tamu ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkdiningroom">
+                <label class="form-check-label" for="Ruang Makan">Ruang Makan</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputdiningroom" name="diningroom">
+                  <option disabled selected> Pilih Opsi Ruang Makan ...</option>
+                  <option value="true">Ada</option>
+                  <option value="false">Tidak ada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkfoundation">
+                <label class="form-check-label" for="Pondasi">Pondasi</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputfoundation" name="foundation">
+                  <option disabled selected> Pilih Opsi Pondasi ...</option>
+                  <option value="Cakar Ayam">Cakar Ayam</option>
+                  <option value="Raft">Raft</option>
+                  <option value="Tapak">Tapak</option>
+                  <option value="Tiang">Tiang</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkwall">
+                <label class="form-check-label" for="Dinding">Dinding</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputwall" name="wall" multiple>
+                  <option disabled selected> Pilih Opsi Dinding ...</option>
+                  <option value="Bata Ringan">Bata Ringan</option>
+                  <option value="Plaster">Plaster</option>
+                  <option value="Bata Berat">Bata Berat</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkfloortype">
+                <label class="form-check-label" for="Jenis Lantai">Jenis Lantai</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputfloortype" name="floortype">
+                  <option disabled selected> Pilih Opsi Jenis Lantai ...</option>
+                  <option value="Keramik">Keramik</option>
+                  <option value="Ubin">Ubin</option>
+                  <option value="Tanah">Tanah</option>
+                  <option value="Kayu">Kayu</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkfloorlength">
+                <label class="form-check-label" for="floorlength">Ukuran Lantai</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="floorlength" placeholder="Ukuran Lantai">
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checksanitary">
+                <label class="form-check-label" for="Sanitasi">Sanitasi</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputsanitary" name="sanitary" multiple>
+                  <option disabled selected> Pilih Opsi Sanitasi ...</option>
+                  <option value="Closet Duduk">Closet Duduk</option>
+                  <option value="Closet Jongkok">Closet Jongkok</option>
+                  <option value="Shower">Shower</option>
+                  <option value="Bathub">Bathub</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkjamb">
+                <label class="form-check-label" for="Kusen">Kusen</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputjamb" name="jamb">
+                  <option disabled selected> Pilih Opsi Kusen ...</option>
+                  <option value="Plastik">Plastik</option>
+                  <option value="Kayu">Kayu</option>
+                  <option value="Alumunium">Alumunium</option>
+                  <option value="Beton">Beton</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkceiling">
+                <label class="form-check-label" for="Plafon">Plafon</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputceiling" name="ceiling">
+                  <option disabled selected> Pilih Opsi Plafon ...</option>
+                  <option value="Gypsum">Gypsum</option>
+                  <option value="Triplek">Triplek</option>
+                  <option value="Baja">Baja</option>
+                  <option value="Granit">Granit</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkroof">
+                <label class="form-check-label" for="Atap">Atap</label>
+              </div>
+              <div class="container">
+                <select class="form-control" id="inputroof" name="roof">
+                  <option disabled selected> Pilih Opsi Atap ...</option>
+                  <option value="Rangka Baja Ringan">Rangka Baja Ringan</option>
+                  <option value="Rangka Kayu">Rangka Kayu</option>
+                  <option value="Seng">Seng</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-check">
+            <div class="d-flex flex-row mb-3">
+              <div class="container w-25">
+                <input type="checkbox" class="form-check-input" name="checkelectricity">
+                <label class="form-check-label" for="electricity">Listrik</label>
+              </div>
+              <div class="container">
+                <input class="form-control" type="number" name="electricity" placeholder="Listrik">
               </div>
             </div>
           </div>
@@ -113,49 +405,185 @@
         </div>
       </form>
     </div>
-    <div class="container mt-3">
+    <div class="container mt-3 table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>
+            <th class="th-sm">
               <div>ID</div>
               <div>
                 <button id="idASC" class="arrow arrow-up"></button>
                 <button id="idDESC" class="arrow arrow-down"></button>
               </div>
             </th>
-            <th>
-              <div>String</div>
+            <th class="th-md">
+              <div>Gambar</div>
+            </th>
+            <th class="th-md">
+              <div>Nama</div>
               <div>
-                <button id="stringASC" class="arrow arrow-up"></button>
-                <button id="stringDESC" class="arrow arrow-down"></button>
+                <button id="nameASC" class="arrow arrow-up"></button>
+                <button id="nameDESC" class="arrow arrow-down"></button>
               </div>
             </th>
-            <th>
-              <div>Integer</div>
+            <th class="th-sm">
+              <div>Tipe</div>
               <div>
-                <button id="integerASC" class="arrow arrow-up"></button>
-                <button id="integerDESC" class="arrow arrow-down"></button>
+                <button id="typeASC" class="arrow arrow-up"></button>
+                <button id="typeDESC" class="arrow arrow-down"></button>
               </div>
             </th>
-            <th>
-              <div>Float</div>
+            <th class="th-md">
+              <div>Price</div>
               <div>
-                <button id="floatASC" class="arrow arrow-up"></button>
-                <button id="floatDESC" class="arrow arrow-down"></button>
+                <button id="priceASC" class="arrow arrow-up"></button>
+                <button id="priceDESC" class="arrow arrow-down"></button>
               </div>
             </th>
-            <th>
-              <div>Date</div>
+            <th class="th-md">
+              <div>Luas Tanah</div>
               <div>
-                <button id="dateASC" class="arrow arrow-up"></button>
-                <button id="dateDESC" class="arrow arrow-down"></button>
+                <button id="landareaASC" class="arrow arrow-up"></button>
+                <button id="landareaDESC" class="arrow arrow-down"></button>
               </div>
             </th>
-            <th>
-              <div>Boolean</div>
+            <th class="th-md">
+              <div>Sertifikat</div>
+              <div>
+                <button id="certificateASC" class="arrow arrow-up"></button>
+                <button id="certificateDESC" class="arrow arrow-down"></button>
+              </div>
             </th>
-            <th>
+            <th class="th-xl">
+              <div>Alamat</div>
+              <div>
+                <button id="addressASC" class="arrow arrow-up"></button>
+                <button id="addressDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
+              <div>Latitude</div>
+              <div>
+                <button id="latASC" class="arrow arrow-up"></button>
+                <button id="latDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
+              <div>Longitude</div>
+              <div>
+                <button id="longASC" class="arrow arrow-up"></button>
+                <button id="longDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>Jumlah Lantai</div>
+              <div>
+                <button id="numfloorASC" class="arrow arrow-up"></button>
+                <button id="numfloorDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>K. Tidur</div>
+              <div>
+                <button id="bedroomASC" class="arrow arrow-up"></button>
+                <button id="bedroomDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>K. Mandi</div>
+              <div>
+                <button id="bathroomASC" class="arrow arrow-up"></button>
+                <button id="bathroomDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>Garasi</div>
+            </th>
+            <th class="th-md">
+              <div>Kebun</div>
+            </th>
+            <th class="th-md">
+              <div>Dapur</div>
+            </th>
+            <th class="th-md">
+              <div>Halaman</div>
+            </th>
+            <th class="th-md">
+              <div>R. Tamu</div>
+            </th>
+            <th class="th-md">
+              <div>R. Makan</div>
+            </th>
+            <th class="th-md">
+              <div>Pondasi</div>
+              <div>
+                <button id="foundationASC" class="arrow arrow-up"></button>
+                <button id="foundationDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
+              <div>Dinding</div>
+            </th>
+            <th class="th-md">
+              <div>Tipe Lantai</div>
+              <div>
+                <button id="floortypeASC" class="arrow arrow-up"></button>
+                <button id="floortypeDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>Ukuran Lantai</div>
+              <div>
+                <button id="floorlengthASC" class="arrow arrow-up"></button>
+                <button id="floorlengthDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
+              <div>Sanitary</div>
+            </th>
+            <th class="th-md">
+              <div>Kusen</div>
+              <div>
+                <button id="jambASC" class="arrow arrow-up"></button>
+                <button id="jambDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>Plafon</div>
+              <div>
+                <button id="ceilingASC" class="arrow arrow-up"></button>
+                <button id="ceilingDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
+              <div>Atap</div>
+              <div>
+                <button id="roofASC" class="arrow arrow-up"></button>
+                <button id="roofDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-md">
+              <div>Listrik</div>
+              <div>
+                <button id="electricityASC" class="arrow arrow-up"></button>
+                <button id="electricityDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-xl">
+              <div>Created At</div>
+              <div>
+                <button id="createdAtASC" class="arrow arrow-up"></button>
+                <button id="createdAtDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-xl">
+              <div>Updated At</div>
+              <div>
+                <button id="updatedAtASC" class="arrow arrow-up"></button>
+                <button id="updatedAtDESC" class="arrow arrow-down"></button>
+              </div>
+            </th>
+            <th class="th-lg">
               <div>Actions</div>
             </th>
             </th>
@@ -164,6 +592,8 @@
         <tbody id="tdata">
         </tbody>
       </table>
+    </div>
+    <div class="container">
       <nav>
         <p id="pagenumber"></p>
         <p id="filters"></p>
@@ -180,19 +610,328 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
   <script>
-    $.ajax({
-      url: '/admin/login/userinfo',
-      method: 'GET',
-    }).done((res) => {
-      $('#userinfo').html(res.firstName)
+
+    $('#idASC').click(() => {
+      read(1, 'id', 'ASC');
+    });
+
+    $('#idDESC').click(() => {
+      read(1, 'id', 'DESC');
+    });
+
+    $('#nameASC').click(() => {
+      read(1, 'name', 'ASC');
+    });
+
+
+    $('#nameDESC').click(() => {
+      read(1, 'name', 'DESC');
+    });
+
+    $('#priceASC').click(() => {
+      read(1, 'price', 'ASC');
+    });
+
+    $('#priceDESC').click(() => {
+      read(1, 'price', 'DESC');
+    });
+
+    $('#landareaASC').click(() => {
+      read(1, 'landarea', 'ASC');
+    });
+
+    $('#landareaDESC').click(() => {
+      read(1, 'landarea', 'DESC');
+    });
+
+    $('#typeASC').click(() => {
+      read(1, 'type', 'ASC');
+    });
+
+    $('#typeDESC').click(() => {
+      read(1, 'type', 'DESC');
+    });
+
+    $('#certificateASC').click(() => {
+      read(1, 'certificate', 'ASC');
+    });
+
+    $('#certificateDESC').click(() => {
+      read(1, 'certificate', 'DESC');
+    });
+
+    $('#addressASC').click(() => {
+      read(1, 'address', 'ASC');
+    });
+
+    $('#addressDESC').click(() => {
+      read(1, 'address', 'DESC');
+    });
+
+    $('#latASC').click(() => {
+      read(1, 'lat', 'ASC');
+    });
+
+    $('#latDESC').click(() => {
+      read(1, 'lat', 'DESC');
+    });
+
+    $('#longASC').click(() => {
+      read(1, 'long', 'ASC');
+    });
+
+    $('#longDESC').click(() => {
+      read(1, 'long', 'DESC');
+    });
+
+    $('#numfloorASC').click(() => {
+      read(1, 'numfloor', 'ASC');
+    });
+
+    $('#numfloorDESC').click(() => {
+      read(1, 'numfloor', 'DESC');
+    });
+
+    $('#bedroomASC').click(() => {
+      read(1, 'bedroom', 'ASC');
+    });
+
+    $('#bedroomDESC').click(() => {
+      read(1, 'bedroom', 'DESC');
+    });
+
+    $('#bathroomASC').click(() => {
+      read(1, 'bathroom', 'ASC');
+    });
+
+    $('#bathroomDESC').click(() => {
+      read(1, 'bathroom', 'DESC');
+    });
+
+    $('#foundationASC').click(() => {
+      read(1, 'foundation', 'ASC');
+    });
+
+    $('#foundationDESC').click(() => {
+      read(1, 'foundation', 'DESC');
+    });
+
+    $('#floortypeASC').click(() => {
+      read(1, 'floortype', 'ASC');
+    });
+
+    $('#floortypeDESC').click(() => {
+      read(1, 'floortype', 'DESC');
+    });
+
+    $('#floorlengthASC').click(() => {
+      read(1, 'floorlength', 'ASC');
+    });
+
+    $('#floorlengthDESC').click(() => {
+      read(1, 'floorlength', 'DESC');
+    });
+
+    $('#jambASC').click(() => {
+      read(1, 'jamb', 'ASC');
+    });
+
+    $('#jambDESC').click(() => {
+      read(1, 'jamb', 'DESC');
+    });
+
+    $('#ceilingASC').click(() => {
+      read(1, 'ceiling', 'ASC');
+    });
+
+    $('#ceilingDESC').click(() => {
+      read(1, 'ceiling', 'DESC');
+    });
+
+    $('#roofASC').click(() => {
+      read(1, 'roof', 'ASC');
+    });
+
+    $('#roofDESC').click(() => {
+      read(1, 'roof', 'DESC');
+    });
+
+    $('#electricityASC').click(() => {
+      read(1, 'electricity', 'ASC');
+    });
+
+    $('#electricityDESC').click(() => {
+      read(1, 'electricity', 'DESC');
+    });
+
+    $('#createdAtASC').click(() => {
+      read(1, 'createdAt', 'ASC');
+    });
+
+    $('#createdAtDESC').click(() => {
+      read(1, 'createdAt', 'DESC');
+    });
+
+    $('#updatedAtASC').click(() => {
+      read(1, 'updatedAt', 'ASC');
+    });
+
+    $('#updatedAtDESC').click(() => {
+      read(1, 'updatedAt', 'DESC');
+    });
+
+    function read(page, sortp, sortr, filter) {
+      let tdata = $('#tdata');
+      let sortbutton = $(`#${sortp ? sortp : 'id'}${sortr ? sortr : 'ASC'}`)
+      let arrowup = $('.arrow-up-active');
+      let arrowdown = $('.arrow-down-active');
+      if (arrowup.length > 0) {
+        arrowup.removeClass('arrow-up-active')
+      }
+      if (arrowdown.length > 0) {
+        arrowdown.removeClass('arrow-down-active')
+      }
+      if (sortr === 'ASC' || !(sortr)) {
+        sortbutton.toggleClass('arrow-up-active')
+      } else if (sortr === 'DESC') {
+        sortbutton.toggleClass('arrow-down-active')
+      }
+      tdata.html('');
+      let url = `admin/houses?page=${page ? page : 1}&sortp=${sortp ? sortp : 'id'}&sortr=${sortr ? sortr : 'ASC'}${filter ? '&' + filter : ''}`;
+      $.ajax({
+        url: url,
+        method: 'GET'
+      }).done((response) => {
+        let rs = response;
+        let data = rs.data;
+        $('#page').empty();
+        $('#pagenumber').text(rs.page);
+        $('#filters').text(rs.filters);
+        $('#sortp').text(rs.sort.prop);
+        $('#sortr').text(rs.sort.rule);
+        data.forEach((e) => {
+          let img = ''
+          if (e.images) {
+            img = `<img class="img-thumbnail" src="${e.images[0].path}">`
+          }
+          let tr = `<tr>
+          <td class="id">${e.id}</td>
+          <td>${img || 'kosong'}</td>
+          <td>${e.name || 'kosong'}</td>
+          <td>${e.type || 'kosong'}</td>
+          <td>${e.price || 'kosong'}</td>
+          <td>${e.landarea || 'kosong'}</td>
+          <td>${e.certificate || 'kosong'}</td>
+          <td>${e.address || 'kosong'}</td>
+          <td>${e.lat || 'kosong'}</td>
+          <td>${e.long || 'kosong'}</td>
+          <td>${e.numfloor || 0}</td>
+          <td>${e.bedroom || 0}</td>
+          <td>${e.bathroom || 0}</td>
+          <td>${e.carport === null ? 'kosong' : e.carport}</td>
+          <td>${e.garden === null ? 'kosong' : e.garden}</td>
+          <td>${e.kitchen === null ? 'kosong' : e.kitchen}</td>
+          <td>${e.yard === null ? 'kosong' : e.yard}</td>
+          <td>${e.livingroom === null ? 'kosong' : e.livingroom}</td>
+          <td>${e.diningroom === null ? 'kosong' : e.diningroom}</td>
+          <td>${e.foundation || 'kosong'}</td>
+          <td>${e.wall ? e.wall.reduce((prev, current) => prev + ', ' + current) : 'kosong'}</td>
+          <td>${e.floortype || 'kosong'}</td>
+          <td>${e.floorlength || 'kosong'}</td>
+          <td>${e.sanitary ? e.sanitary.reduce((prev, current) => prev + ', ' + current) : 'kosong'}</td>
+          <td>${e.jamb || 'kosong'}</td>
+          <td>${e.ceiling || 'kosong'}</td>
+          <td>${e.roof || 'kosong'}</td>
+          <td>${e.electricity || 'kosong'}</td>
+          <td>${e.createdAt || 'kosong'}</td>
+          <td>${e.updatedAt || 'kosong'}</td>
+          <td>
+            <div>
+              <button class="btn btn-success editbutton">Edit</button>
+              <button class="btn btn-danger deletebutton" >Delete</button>
+            </div>
+          </td>
+        </tr>`
+          tdata.html(tdata.html() + tr);
+        })
+        let page = $('#page');
+        page.html('');
+        let previous = ''
+        let next = ''
+        if (rs.page > 1) {
+          previous = `<li class="page-item"><button class="page-link previous">Previous</button></li>`
+        }
+        if (rs.page + 1 <= Math.ceil(rs.total / 3)) {
+          next = `<li class="page-item"><button class="page-link next">Next</button></li>`
+        }
+        let pagenum = '';
+        for (let i = 0; i < Math.ceil(rs.total / 3); i++) {
+          if (rs.page === i + 1) {
+            pagenum += `<li class="page-item active"><button class="page-link pages">${i + 1}</button></li>`
+          } else {
+            pagenum += `<li class="page-item"><button class="page-link pages">${i + 1}</button></li>`
+          }
+        }
+        page.html(page.html() + previous + pagenum + next)
+      })
+    }
+
+    $('nav').on('click', '.previous', (event) => {
+      read(parseInt($('#pagenumber').text()) - 1, $('#sortp').text(), $('#sortr').text(), $('#filters').text())
     })
+
+    $('nav').on('click', '.next', (event) => {
+      read(parseInt($('#pagenumber').text()) + 1, $('#sortp').text(), $('#sortr').text(), $('#filters').text())
+    })
+
+    $('nav').on('click', '.pages', (event) => {
+      read(parseInt($(event.target).text()), $('#sortp').text(), $('#sortr').text(), $('#filters').text())
+    })
+
+    $('#tdata').on('click', ".deletebutton", (event) => {
+      let id = $(event.target).parents().children('.id').text();
+      deletedata(id);
+    })
+
+    function deletedata(id) {
+      $.ajax({
+        url: `admin/houses/delete/${id}`,
+        method: 'DELETE'
+      }).done(() => {
+        read();
+      })
+    }
+
+    $("#browse").on('submit', (event) => {
+      event.preventDefault();
+      let formQuery = `&${$("#browse").serialize()}`;
+      read(1, 'id', 'ASC', formQuery);
+    })
+
     $('#signout').click(() => {
       $.ajax({
         url: '/admin/login/logout',
         method: 'GET',
       }).done((res) => {
-        window.location.href = 'admin/login'
+        window.location.href = '/admin/login'
       })
+    })
+    $('#addbutton').click(() => {
+      window.location.href = '/admin/houses/add'
+    })
+
+    $(document).ready(() => {
+      $.ajax({
+        url: '/admin/login/userinfo',
+        method: 'GET',
+      }).done((res) => {
+        $('#userinfo').html(res.firstName)
+      })
+      $('#pagenumber').hide();
+      $('#sortp').hide();
+      $('#sortr').hide();
+      $('#filters').hide();
+      read();
     })
   </script>
 
