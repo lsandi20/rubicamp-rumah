@@ -884,12 +884,17 @@
       read(parseInt($('#pagenumber').text()) + 1, $('#sortp').text(), $('#sortr').text(), $('#filters').text())
     })
 
-    $('nav').on('click', '.pages', (event) => {
-      read(parseInt($(event.target).text()), $('#sortp').text(), $('#sortr').text(), $('#filters').text())
+    $('nav').on('click', '.pages', function (event) {
+      read(parseInt($(this).text()), $('#sortp').text(), $('#sortr').text(), $('#filters').text())
     })
 
-    $('#tdata').on('click', ".deletebutton", (event) => {
-      let id = $(event.target).parents().children('.id').text();
+    $('#tdata').on('click', ".editbutton", function (event) {
+      let id = $(this).parents().children('.id').text();
+      window.location.href = `/admin/houses/edit?id=${id}`
+    })
+
+    $('#tdata').on('click', ".deletebutton", function (event) {
+      let id = $(this).parents().children('.id').text();
       deletedata(id);
     })
 

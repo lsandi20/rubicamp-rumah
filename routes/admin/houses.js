@@ -97,6 +97,10 @@ module.exports = function (dirname) {
     res.render('admin/add');
   })
 
+  router.get('/edit', helpers.isLoggedIn, (req, res, next) => {
+    res.render('admin/edit');
+  })
+
   router.post('/add', helpers.isLoggedIn, (req, res, next) => {
     let data = req.body;
     let files = [];
@@ -187,15 +191,17 @@ module.exports = function (dirname) {
     })
   })
 
-  router.post('/edit/:id', helpers.isLoggedIn, (req, res, next) => {
+  router.put('/edit/:id', helpers.isLoggedIn, (req, res, next) => {
     let data = req.body;
     let files = [];
     if (data.previousFile) {
       if (Array.isArray(data.previousFile)) {
         data.previousFile.forEach((f) => {
+          f = JSON.parse(f)
           files.push(f);
         })
       } else {
+        data.previousFile = JSON.parse(data.previousFile)
         files.push(data.previousFile)
       }
     }
@@ -241,6 +247,12 @@ module.exports = function (dirname) {
       }
       if (!Array.isArray(data.sanitary)) {
         data.sanitary = [data.sanitary]
+      }
+      if (!data.floorlength) {
+        data.floorlength = null
+      }
+      if (!data.electricity) {
+        data.electricity = null
       }
       models.House.update({
         name: data.name,
