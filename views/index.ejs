@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>Rumah Finder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&family=Source+Sans+Pro&display=swap"
+    rel="stylesheet">
+  <link rel='stylesheet' href='/stylesheets/stylehome.css' />
+</head>
+
+<body>
+  <nav>
+    <div id="logowithsearch">
+      <div id="logocontainer">
+        <a id="logo" href="/"><img style="height: 25px;" src="/images/logowhite.png">RumahFinder<em id="logocapt">-
+            cari dan jual
+            rumah -</em></a>
+      </div>
+      <div id="searchcontainer">
+        <button id="searchfilterbutton">
+          <div id="searchfilterbuttonimg"></div>
+        </button>
+        <input id="searchinput" type="text" placeholder="Search...">
+      </div>
+    </div>
+    <a id="login" href="/admin/login">Sign In</a>
+  </nav>
+</body>
+
 </html>

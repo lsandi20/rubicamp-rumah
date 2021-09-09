@@ -1,0 +1,114 @@
+body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+nav {
+  padding: 10px;
+  display: flex;
+  width: vw100;
+  background-image:linear-gradient(rgb(118, 218, 201),rgb(14, 219, 255));
+  justify-content: space-between;
+}
+
+button {
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid #ffff;
+  color: #ffff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
+a:active, a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #ffff;
+}
+
+#logowithsearch {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#logocontainer {
+  width: 60%;
+}
+
+#logo {
+  font-family:'Oswald' , sans-serif;
+  font-size: 25px;
+  text-shadow: 1px 1px 10px rgb(110, 110, 110);
+}
+
+#logocapt {
+  width: 100%;
+  font-family:'Caveat', cursive; 
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 10px  rgb(110, 110, 110);
+}
+
+#searchcontainer {
+  width: 100%;
+  background-color: #ffff;
+  border-radius: 10px;
+  display: flex;
+}
+
+#searchfilterbutton {
+  background-image:linear-gradient(rgb(118, 218, 201),rgb(14, 219, 255));
+}
+
+#searchfilterbutton:hover {
+ background-image: none;
+ background-color: #ffff;
+}
+
+#searchfilterbutton:hover > div {
+  background-image: url('/images/setting-icon-dark.png');
+}
+
+#searchfilterbuttonimg {
+  height: 20px;
+  width: 20px;
+  background-size: cover;
+  background-image: url('/images/setting-icon.png');
+}
+
+#searchinput {
+  width: 100%;
+  border: 2px solid #ffff;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+#searchinput:focus {
+  outline: transparent;
+}
+
+#login {
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+  border: 2px solid #ffff;
+  color: #ffff;
+  padding: 10px;
+  width: 50px;
+  border-radius: 10px;
+}
+
+#login:hover {
+  color: rgb(118, 218, 201);
+  background-color: #ffff;
+}
+
+
