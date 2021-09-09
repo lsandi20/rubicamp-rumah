@@ -11,13 +11,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/auth', function (req, res, next) {
-  console.log(req.body)
   const { email, password } = req.body
   models.User.findOne({ where: { email } }).then(result => {
     if (result === null) {
       return res.status(404).json({ message: 'User not found' })
     }
-    console.log(result.dataValues);
     let data = result.dataValues;
     if (bcrypt.compareSync(password, data.password)) {
       req.session.user = data;
