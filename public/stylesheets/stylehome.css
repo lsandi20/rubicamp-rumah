@@ -3,14 +3,20 @@ body {
   padding: 0px;
   margin: 0px;
   font-family: 'Source Sans Pro', sans-serif;
+  color: #ffff;
 }
 
-nav {
+#navbar {
   padding: 10px;
   display: flex;
-  width: vw100;
+  width: 100%;
+  height: 70px;
   background-image:linear-gradient(rgb(118, 218, 201),rgb(14, 219, 255));
   justify-content: space-between;
+  position: fixed;
+  top: 0px;
+  box-sizing: border-box;
+  z-index: 100;
 }
 
 button {
@@ -21,9 +27,17 @@ button {
   color: #ffff;
   padding: 10px;
   border-radius: 10px;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
+button:hover {
+  background-color: #ffff;
+  color: rgb(118, 218, 201);
+}
 
+p {
+  margin: 0;
+}
 
 a:active, a:link {
   text-decoration: none;
@@ -40,7 +54,7 @@ a:visited {
 }
 
 #logocontainer {
-  width: 60%;
+  width: 80%;
 }
 
 #logo {
@@ -61,11 +75,13 @@ a:visited {
   width: 100%;
   background-color: #ffff;
   border-radius: 10px;
+  height: 50px;
   display: flex;
 }
 
 #searchfilterbutton {
   background-image:linear-gradient(rgb(118, 218, 201),rgb(14, 219, 255));
+  margin-right: 10px;
 }
 
 #searchfilterbutton:hover {
@@ -84,6 +100,7 @@ a:visited {
   background-image: url('/images/setting-icon.png');
 }
 
+
 #searchinput {
   width: 100%;
   border: 2px solid #ffff;
@@ -95,20 +112,321 @@ a:visited {
   outline: transparent;
 }
 
-#login {
-  text-align: center;
-  font-weight: bold;
-  background-color: transparent;
-  border: 2px solid #ffff;
-  color: #ffff;
-  padding: 10px;
-  width: 50px;
-  border-radius: 10px;
-}
 
 #login:hover {
   color: rgb(118, 218, 201);
   background-color: #ffff;
 }
 
+#sidebarcontainer {
+  display: none;
+  position: fixed;
+  width: 20vw;
+  height: 100vh;
+  background-color: rgb(14, 219, 255);
+  z-index: 1;
+}
 
+#sidebar {
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  background-color: rgb(14, 219, 255);
+  justify-content: space-between;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(10, 150, 175)
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:  rgb(110, 110, 110);
+}
+
+#sidebarbottom {
+  width: 100%;
+  height: 10%;
+  background-color:rgb(118, 218, 201);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.filtercontainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+
+.filtercheckboxcontainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+.filterlabel {
+  font-weight: bold;
+}
+
+.filterinputcontainer {
+  width: 100%;
+}
+
+.filterinput {
+  box-sizing: border-box;
+  width: 100%;
+  width: 100%;
+  border: 2px solid #ffff;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #ffff;
+}
+
+.filterselectinput {
+  color: gray;
+}
+
+option {
+  color: black;
+}
+
+.filterinput:focus {
+  outline: transparent;
+}
+
+#filterbutton {
+  background-color: rgb(252, 200, 59);
+  color: black;
+  border: none;
+}
+
+#filterbutton:hover {
+  background-color: #ffff;
+  color: rgb(118, 218, 201);
+}
+
+#maincontent {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: rgb(14, 219, 255);
+  color: black;
+  z-index: -1;
+}
+
+#mapcontainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  background-color: white;
+  width: 87%;
+  height: 500px;
+  border-radius: 20px;
+z-index:0;
+}
+
+
+#housecardcontainer {
+  display: flex;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.housecard {
+  background-color: white;
+  width: 25%;
+  border-radius: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all .3s ease;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.housecard:hover{
+  transform: scale(1.1);
+}
+
+.housecardthumbnail {
+  width: 100%; 
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  box-sizing: border-box;
+}
+
+.housecardimagelayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.housecardimage {
+  width: auto;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.housecardtitle {
+  margin-top: 10px;
+}
+
+.housecardtitletext {
+  margin: 0px;
+  text-align: center;
+}
+
+.housecardprice {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+  background-color: rgb(224, 222, 252);
+  font-weight: bold;
+}
+
+.housecardspec {
+  font-size: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.housecardfeaturecontainer {
+  display: flex;
+  font-size: 14px
+}
+
+.housecardfeature {
+  width: 80px;
+  font-size: 12px;
+}
+
+.housecardbuttoncontainer {
+  margin-top: 10px;
+  display: flex; 
+  justify-content: center;
+}
+
+.housecardbutton {
+  background-color: rgb(19, 141, 255); 
+  width: 100%;
+}
+
+.housecardbutton:hover {
+  background-color: rgb(14, 85, 151); 
+  width: 100%;
+}
+
+
+#rightsidebarcontainer {
+  display: none;
+  right: 0;
+  position: fixed;
+  width: 30vw;
+  height: 90vh;
+  background-color: rgb(14, 219, 255);
+  overflow-y: scroll;
+  direction: rtl;
+}
+
+#rightsidebarcontent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  direction: ltr;
+}
+
+h3 {
+  margin: 0px;
+}
+.housedetailtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.housedetailmoretitle {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.housedetailmoretitletext {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.housedetailthumbnail {
+  width: 100%; 
+  padding-left: 10px;
+  padding-right: 10px;
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  box-sizing: border-box;
+  
+}
+
+.housedetailimagelayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 150px;
+}
+
+.housedetailimage {
+  width: auto;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.housedetailattributecontainer {
+  display: flex;
+}
+
+.housedetailattribute {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  font-size: 14px
+}
+
+.housedetailattributebasic {
+  width: 80px;
+}
+
+.housedetailmap {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%; 
+  padding-left: 10px;
+  padding-right: 10px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:flex-start;
+  box-sizing: border-box;
+}

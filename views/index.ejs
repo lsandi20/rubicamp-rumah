@@ -8,25 +8,614 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&family=Source+Sans+Pro&display=swap"
     rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/stylehome.css' />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 
 <body>
-  <nav>
+  <nav id="navbar">
     <div id="logowithsearch">
       <div id="logocontainer">
+        <button id="searchfilterbutton">
+          <div id="searchfilterbuttonimg"></div>
+        </button>
         <a id="logo" href="/"><img style="height: 25px;" src="/images/logowhite.png">RumahFinder<em id="logocapt">-
             cari dan jual
             rumah -</em></a>
       </div>
       <div id="searchcontainer">
-        <button id="searchfilterbutton">
-          <div id="searchfilterbuttonimg"></div>
-        </button>
+
         <input id="searchinput" type="text" placeholder="Search...">
+
       </div>
     </div>
-    <a id="login" href="/admin/login">Sign In</a>
+    <button>Sign In</button>
   </nav>
+  <div id="sidebarcontainer">
+    <nav id="sidebar">
+      <form id="browse">
+        <div id="filtermaincontainer">
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checktype">
+              <label class="filterlabel" for="type">Tipe</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="type" step="1" placeholder="Masukkan Tipe Rumah">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkprice">
+              <label class="filterlabel" for="price">Harga</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="price" placeholder="Harga">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checklandarea">
+              <label class="filterlabel" for="landarea">Luas Tanah</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="landarea" placeholder="Luas Tanah">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkcertificate">
+              <label class="filterlabel" for="Sertifikat">Sertifikat</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="text" name="certificate" placeholder="Sertifikat">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkaddress">
+              <label class="filterlabel" for="Address">Address</label>
+            </div>
+            <div class="filterinputcontainer">
+              <textarea class="filterinput" type="text" name="address" placeholder="Address"></textarea>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checklat">
+              <label class="filterlabel" for="Latitude">Latitude</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="lat" step="any" placeholder="Latitude">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checklong">
+              <label class="filterlabel" for="Longitude">Longitude</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="long" step="any" placeholder="Longitude">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checknumfloor">
+              <label class="filterlabel" for="numfloor">Jumlah Lantai</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="numfloor" placeholder="Jumlah Lantai">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkbedroom">
+              <label class="filterlabel" for="bedroom">Jumlah Kamar Tidur</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="bedroom" placeholder="Jumlah Kamar Tidur">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkbathroom">
+              <label class="filterlabel" for="bathroom">Jumlah Kamar Mandi</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="bathroom" placeholder="Jumlah Kamar Mandi">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkcarport">
+              <label class="filterlabel" for="Garasi">Garasi</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputcarport" name="carport">
+                <option disabled selected> Pilih Opsi Garasi ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkkitchen">
+              <label class="filterlabel" for="Dapur">Dapur</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputkitchen" name="kitchen">
+                <option disabled selected> Pilih Opsi Dapur ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkgarden">
+              <label class="filterlabel" for="Kebun">Kebun</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputgarden" name="garden">
+                <option disabled selected> Pilih Opsi Kebun ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkyard">
+              <label class="filterlabel" for="Halaman">Halaman</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputyard" name="yard">
+                <option disabled selected> Pilih Opsi Halaman ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checklivingroom">
+              <label class="filterlabel" for="Ruang Tamu">Ruang Tamu</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputlivingroom" name="livingroom">
+                <option disabled selected> Pilih Opsi Ruang Tamu ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkdiningroom">
+              <label class="filterlabel" for="Ruang Makan">Ruang Makan</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputdiningroom" name="diningroom">
+                <option disabled selected> Pilih Opsi Ruang Makan ...</option>
+                <option value="true">Ada</option>
+                <option value="false">Tidak ada</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkfoundation">
+              <label class="filterlabel" for="Pondasi">Pondasi</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputfoundation" name="foundation">
+                <option disabled selected> Pilih Opsi Pondasi ...</option>
+                <option value="Cakar Ayam">Cakar Ayam</option>
+                <option value="Raft">Raft</option>
+                <option value="Tapak">Tapak</option>
+                <option value="Tiang">Tiang</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkwall">
+              <label class="filterlabel" for="Dinding">Dinding</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputwall" name="wall" multiple>
+                <option disabled selected> Pilih Opsi Dinding ...</option>
+                <option value="Bata Ringan">Bata Ringan</option>
+                <option value="Plaster">Plaster</option>
+                <option value="Bata Berat">Bata Berat</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkfloortype">
+              <label class="filterlabel" for="Jenis Lantai">Jenis Lantai</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputfloortype" name="floortype">
+                <option disabled selected> Pilih Opsi Jenis Lantai ...</option>
+                <option value="Keramik">Keramik</option>
+                <option value="Ubin">Ubin</option>
+                <option value="Tanah">Tanah</option>
+                <option value="Kayu">Kayu</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkfloorlength">
+              <label class="filterlabel" for="floorlength">Ukuran Lantai</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="floorlength" placeholder="Ukuran Lantai">
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checksanitary">
+              <label class="filterlabel" for="Sanitasi">Sanitasi</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputsanitary" name="sanitary" multiple>
+                <option disabled selected> Pilih Opsi Sanitasi ...</option>
+                <option value="Closet Duduk">Closet Duduk</option>
+                <option value="Closet Jongkok">Closet Jongkok</option>
+                <option value="Shower">Shower</option>
+                <option value="Bathub">Bathub</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkjamb">
+              <label class="filterlabel" for="Kusen">Kusen</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputjamb" name="jamb">
+                <option disabled selected> Pilih Opsi Kusen ...</option>
+                <option value="Plastik">Plastik</option>
+                <option value="Kayu">Kayu</option>
+                <option value="Alumunium">Alumunium</option>
+                <option value="Beton">Beton</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkceiling">
+              <label class="filterlabel" for="Plafon">Plafon</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputceiling" name="ceiling">
+                <option disabled selected> Pilih Opsi Plafon ...</option>
+                <option value="Gypsum">Gypsum</option>
+                <option value="Triplek">Triplek</option>
+                <option value="Baja">Baja</option>
+                <option value="Granit">Granit</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkroof">
+              <label class="filterlabel" for="Atap">Atap</label>
+            </div>
+            <div class="filterinputcontainer">
+              <select class="filterinput filterselectinput" id="inputroof" name="roof">
+                <option disabled selected> Pilih Opsi Atap ...</option>
+                <option value="Rangka Baja Ringan">Rangka Baja Ringan</option>
+                <option value="Rangka Kayu">Rangka Kayu</option>
+                <option value="Seng">Seng</option>
+              </select>
+            </div>
+          </div>
+          <div class="filtercontainer">
+            <div class="filtercheckboxcontainer">
+              <input type="checkbox" class="filtercheck" name="checkelectricity">
+              <label class="filterlabel" for="electricity">Listrik</label>
+            </div>
+            <div class="filterinputcontainer">
+              <input class="filterinput" type="number" name="electricity" placeholder="Listrik">
+            </div>
+          </div>
+        </div>
+      </form>
+    </nav>
+    <div id="sidebarbottom">
+      <button id="filterbutton">Filter Pencarian</button>
+    </div>
+  </div>
+  <main id="maincontent">
+    <div id="mapcontainer">
+    </div>
+    <div id="housecardcontainer">
+      <div class="housecard">
+        <div class="housecardthumbnail">
+          <div class="housecardimagelayout">
+            <img class="housecardimage" src="/files/1631091966049house.jpg">
+          </div>
+        </div>
+        <div class="housecardtitle">
+          <h2 class="housecardtitletext">Rumah Mewah</h2>
+        </div>
+        <div class="housecardprice">
+          Rp 1000000000
+        </div>
+        <div class="housecardspec">
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
+              &nbsp</span>m2
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
+          </div>
+        </div>
+        <hr>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Garasi</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Dapur</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Halaman</div>
+          </div>
+        </div>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&Cross; Kebun</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Makan</div>
+          </div>
+        </div>
+        <div class="housecardbuttoncontainer">
+          <button class="housecardbutton">Lihat Info
+            Rumah</button>
+        </div>
+      </div>
+      <div class="housecard">
+        <div class="housecardthumbnail">
+          <div class="housecardimagelayout">
+            <img class="housecardimage" src="/images/house.jpg">
+          </div>
+        </div>
+        <div class="housecardtitle">
+          <h2 class="housecardtitletext">Rumah Elit</h2>
+        </div>
+        <div class="housecardprice">
+          Rp 5000000000
+        </div>
+        <div class="housecardspec">
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
+              &nbsp</span>m2
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
+          </div>
+        </div>
+        <hr>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Garasi</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Dapur</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Halaman</div>
+          </div>
+        </div>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&Cross; Kebun</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Makan</div>
+          </div>
+        </div>
+        <div class="housecardbuttoncontainer">
+          <button class="housecardbutton">Lihat Info
+            Rumah</button>
+        </div>
+      </div>
+      <div class="housecard">
+        <div class="housecardthumbnail">
+          <div class="housecardimagelayout">
+            <img class="housecardimage" src="/files/1631001975779debby-hudson-FmCSSSGge-0-unsplash.jpg">
+          </div>
+        </div>
+        <div class="housecardtitle">
+          <h2 class="housecardtitletext">Rumah Minimalis</h2>
+        </div>
+        <div class="housecardprice">
+          Rp 3000000000
+        </div>
+        <div class="housecardspec">
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
+              &nbsp</span>m2
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
+          </div>
+        </div>
+        <hr>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Garasi</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Dapur</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Halaman</div>
+          </div>
+        </div>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&Cross; Kebun</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">&checkmark; Ruang Makan</div>
+          </div>
+        </div>
+        <div class="housecardbuttoncontainer">
+          <button class="housecardbutton">Lihat Info
+            Rumah</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div id="rightsidebarcontainer">
+    <div id="rightsidebarcontent">
+      <div class="housedetailtitle">
+        <h3>Rumah Elit</h3>
+        <div>Rp 50000000000</div>
+      </div>
+      <div class="housedetailthumbnail">
+        <div class="housedetailimagelayout">
+          <img class="housedetailimage" src="/images/house.jpg">
+        </div>
+      </div>
+      <div class="housedetailcarousel">
+
+      </div>
+      <div class="housedetailmoretitle">
+        <h4 class="housedetailmoretitletext">Deskripsi</h4>
+      </div>
+      <div class="housedetaildescription">
+        <div class="housedetailattributecontainer">
+          <div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
+            </div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Luas Tanah</strong><strong>:
+                &nbsp</strong><span>150</span>m2
+            </div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
+            </div>
+          </div>
+          <div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Lantai</strong><strong>: &nbsp</strong><span>1</span>
+            </div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Kamar Tidur</strong><strong>: &nbsp</strong><span>4</span>
+            </div>
+            <div class="housedetailattribute">
+              <strong class="housedetailattributebasic">Kamar Mandi</strong><strong>: &nbsp</strong><span>2</span>
+            </div>
+          </div>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Fitur</strong><strong>: &nbsp</strong>
+        </div>
+        <div class="housedetailattribute">
+          <span>Garasi, Dapur, Kebun, Halaman, Ruang Tamu, Ruang Makan</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Alamat</strong><strong>: &nbsp</strong>
+        </div>
+        <div class="housedetailattribute">
+          <span>Jl. ABCD No. 123
+            Bandung 40000</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Lokasi</strong><strong>: &nbsp</strong>
+        </div>
+        <div class="housedetailmap">
+          <iframe width="50%" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=88.02246093750001%2C-15.029685756555674%2C137.06542968750003%2C10.055402736564236&amp;layer=mapnik&amp;marker=-2.5479878714713835%2C112.5439453125"></iframe><small><a
+              href="https://www.openstreetmap.org/?mlat=-2.548&amp;mlon=112.544#map=5/-2.548/112.544">View Larger
+              Map</a></small>
+        </div>
+      </div>
+      <div class="housedetailmoretitle">
+        <h4 class="housedetailmoretitletext">Spesifikasi</h4>
+      </div>
+      <div id="housedetailspec">
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Pondasi</strong><strong>: &nbsp</strong><span>Cakar Ayam</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Jenis Lantai</strong><strong>:
+            &nbsp</strong><span>Keramik</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Ukuran</strong><strong>: &nbsp</strong><span>50 x 50</span>
+        </div>
+
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Kusen</strong><strong>: &nbsp</strong><span>Alumunium</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Plafon</strong><strong>: &nbsp</strong><span>Gypsum</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Atap</strong><strong>: &nbsp</strong><span>Rangka Baja
+            Ringan</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>Bata Ringan,
+            Plaster, Bata Berat, Baja</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>Closet Duduk,
+            Shower</span>
+        </div>
+        <div class="housedetailattribute">
+          <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>1000 W</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script>
+    let mapcontent = L.map('mapcontainer').setView([-2.548, 118.037], 5)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapcontent);
+
+    L.marker([-7, 108]).addTo(mapcontent).on('drag', () => {
+      console.log('dragged')
+    })
+
+    L.marker([4, 98]).addTo(mapcontent)
+
+    L.marker([4, 100]).addTo(mapcontent)
+
+  </script>
+
 </body>
 
 </html>
