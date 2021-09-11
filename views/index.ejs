@@ -512,7 +512,7 @@
         let data = response;
         console.log(data);
         let housedetail = `
-        <div class="rightsidebarcontentcontainer">
+        <div class="rightsidebarcontentcontainer rightsidebarselected">
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -654,6 +654,9 @@
         $('.housecardbuttoncompareselected').text('Bandingkan Pilihan Rumah')
         $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected')
       }
+      if ($('.rightsidebarcontent').children().length > 1) {
+        $('.rightsidebarcompare').remove();
+      }
       $(this).removeClass('housecardbuttoncompare');
       $(this).addClass('housecardbuttoncompareselected');
       $(this).addClass('housecardbuttonremove');
@@ -667,7 +670,7 @@
         let data = response;
         console.log(data);
         let housedetail = `
-        <div class="rightsidebarcontentcontainer">
+        <div class="rightsidebarcontentcontainer rightsidebarcompare">
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -789,6 +792,48 @@
 
     })
 
+
+    $('#housecardcontainer').on('click', '.housecardbuttonselected', function (event) {
+      $('.rightsidebarselected').remove();
+      if ($('#rightsidebarcontent').children().length === 0) {
+        $('#rightsidebarcontent').html(` <div class="housedetailtitle">
+          <p>Belum ada rumah yang dipilih</p>
+          <p>Pilih rumah dengan menekan tombol 'Lihat Info Rumah'</p>
+        </div>`)
+        $(this).removeClass('housecardbuttonselected');
+        $(this).removeClass('housecardbuttonremove')
+        $(this).addClass('housecardbutton')
+        $(this).text('Lihat Info Rumah');
+        $('.housecardbuttoncompare').text('Lihat Info Rumah');
+        $('.housecardbuttoncompare').addClass('housecardbutton')
+        $('.housecardbuttoncompare').removeClass('housecardbuttoncompare');
+        $('#status').val('')
+      } else {
+        $(this).removeClass('housecardbuttonselected');
+        $(this).removeClass('housecardbuttonremove')
+        $(this).addClass('housecardbuttoncompare')
+        $(this).text('Bandingkan Pilihan Rumah');
+        $('.rightsidebarcompare').addClass('rightsidebarselected');
+        $('.rightsidebarcompare').removeClass('rightsidebarcompare');
+        $('.housecardbuttoncompareselected').addClass('housecardbuttonselected');
+        $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected');
+        $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
+        $('#maincontent').toggleClass('maincontentcompare')
+        $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
+      }
+    })
+
+    $('#housecardcontainer').on('click', '.housecardbuttoncompareselected', function (event) {
+      $('.rightsidebarcompare').remove();
+      $(this).removeClass('housecardbuttoncompareselected');
+      $(this).removeClass('housecardbuttonremove')
+      $(this).addClass('housecardbuttoncompare')
+      $(this).text('Bandingkan Pilihan Rumah');
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
+      $('#maincontent').toggleClass('maincontentcompare')
+      $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
+      $('#status').val('selected')
+    })
 
     $('#rightsidebarbutton').click(function (event) {
       event.preventDefault()
