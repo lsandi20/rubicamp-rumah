@@ -487,6 +487,7 @@ option {
   display: flex;
   flex-direction: column;
   direction: ltr;
+  width: 300px;
 }
 
 .rightsidebarbuttoncompare {
@@ -562,9 +563,9 @@ h2 {
 }
 
 .housedetailmoreshowbutton {
-  background-color: rgb(23, 124, 48);
-  color: #ffff;
-  border: none;
+  background-color: #ffff;
+  border: 2px solid rgb(23, 124, 48);
+  color:  rgb(23, 124, 48);
   font-size: 10px;
   margin-left: 10px;
   padding-left: 10px;
@@ -572,6 +573,7 @@ h2 {
 }
 
 .housedetailmoreshowbutton:hover {
+  border: 2px solid rgb(17, 59, 24);
 background-color: rgb(17, 59, 24);
 color: #ffff;
 }

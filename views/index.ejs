@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Oswald&family=Source+Sans+Pro&display=swap"
     rel="stylesheet">
   <link rel='stylesheet' href='/stylesheets/stylehome.css' />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="files/leaflet.css" />
+  <script src="files/leaflet.js"></script>
 </head>
 
 <body>
@@ -364,8 +364,8 @@
   </main>
 
   </div>
-  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-  <script src="https://code.jquery.com/ui/1.13.0-rc.2/jquery-ui.min.js"></script>
+  <script src='files/jquery-3.6.0.min.js'></script>
+  <script src="files/jquery-ui.min.js"></script>
   <script>
     let mapcontent = L.map('mapcontainer').setView([-2.548, 118.037], 3)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -377,14 +377,12 @@
     function read(page, filter, status) {
       let cardcontainer = $('#housecardcontainer');
       let url = `house?page=${page ? page : 1}${filter ? '&' + filter : ''}`;
-      console.log(url)
       $.ajax({
         url: url,
         method: 'GET'
       }).done((response) => {
         let rs = response;
         let data = rs.data;
-        console.log(data);
         $('#page').empty();
         $('#pagenumber').text(rs.page);
         $('#total').text(rs.total);
@@ -487,7 +485,6 @@
       layers.clearLayers()
       $('#housecardcontainer').empty()
       let formQuery = `&${$("#browse").serialize()}`;
-      console.log(formQuery)
       read(1, formQuery);
     })
 
@@ -510,7 +507,6 @@
         method: 'GET'
       }).done((response) => {
         let data = response;
-        console.log(data);
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarselected">
         <div class="housedetailremovebuttoncontainer">
@@ -533,7 +529,7 @@
 </div>
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Deskripsi</h4>
-  <button class="housedetailmorehidebutton" id="housedetailmoredescbutton">Hide</button>
+  <button class="housedetailmorehidebutton housedetailmoredescbutton" >Hide</button>
 </div>
 <div id="housedetaildescription">
   <div class="housedetailattributecontainer">
@@ -585,7 +581,7 @@
 </div>
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Spesifikasi</h4>
-  <button class="housedetailmorehidebutton" id="housedetailmorespecbutton">Hide</button>
+  <button class="housedetailmorehidebutton housedetailmorespecbutton">Hide</button>
 </div>
 <div id="housedetailspec">
   <div class="housedetailattribute">
@@ -632,7 +628,6 @@
       }).fail(function (event) {
         event.preventDefault()
         let data = response;
-        console.log(data);
         let housedetail = `
 <div class="housedetailtitle">
   <h2>Data Gagal Ditampilkan</h2>
@@ -671,7 +666,6 @@
         method: 'GET'
       }).done((response) => {
         let data = response;
-        console.log(data);
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarcompare">
           <div class="housedetailremovebuttoncontainer">
@@ -694,7 +688,7 @@
 </div>
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Deskripsi</h4>
-  <button class="housedetailmorehidebutton" id="housedetailmoredescbutton">Hide</button>
+  <button class="housedetailmorehidebutton housedetailmoredescbutton" >Hide</button>
 </div>
 <div id="housedetaildescription">
   <div class="housedetailattributecontainer">
@@ -746,7 +740,7 @@
 </div>
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Spesifikasi</h4>
-  <button class="housedetailmorehidebutton" id="housedetailmorespecbutton">Hide</button>
+  <button class="housedetailmorehidebutton housedetailmorespecbutton">Hide</button>
 </div>
 <div id="housedetailspec">
   <div class="housedetailattribute">
@@ -786,7 +780,6 @@
       }).fail(function (event) {
         event.preventDefault()
         let data = response;
-        console.log(data);
         let housedetail = `
 <div class="housedetailtitle">
   <h2>Data Gagal Ditampilkan</h2>
@@ -903,12 +896,20 @@
       }
     })
 
-    $('#housedetailmoredescbutton').click(function (event) {
+    $('#rightsidebarcontent').on('click', '.housedetailmoredescbutton', function (event) {
       event.preventDefault()
       $(this).text($(this).text() === 'Hide' ? 'Show' : 'Hide')
-      $('#housedetaildescription').toggle();
-      $('#housedetailmoredescbutton').toggleClass('housedetailmorehidebutton');
-      $('#housedetailmoredescbutton').toggleClass('housedetailmoreshowbutton');
+      $(this).parent().next().toggle();
+      $(this).toggleClass('housedetailmorehidebutton');
+      $(this).toggleClass('housedetailmoreshowbutton');
+    })
+
+    $('#rightsidebarcontent').on('click', '.housedetailmorespecbutton', function (event) {
+      event.preventDefault()
+      $(this).text($(this).text() === 'Hide' ? 'Show' : 'Hide')
+      $(this).parent().next().toggle();
+      $(this).toggleClass('housedetailmorehidebutton');
+      $(this).toggleClass('housedetailmoreshowbutton');
     })
 
 
@@ -928,14 +929,7 @@
       read();
     })
     $(document).scroll(() => {
-      console.log($(document).height())
-      console.log($(document).scrollTop())
-      console.log($(window).height())
-      console.log($(window).scrollTop())
-      console.log($(window).height() + $(window).scrollTop());
       if ($(document).height() - ($(window).height() + $(window).scrollTop()) < 10) {
-        console.log($('#housecardcontainer').children().length)
-        console.log($('#total').text())
         if ($('#housecardcontainer').children().length < $('#total').text()) {
           read(parseInt($('#pagenumber').text()) + 1, '', $('#status').val())
         }
