@@ -13,6 +13,9 @@
 </head>
 
 <body>
+  <div id="loadcontainer">
+    Loading...
+  </div>
   <nav id="navbar">
     <div id="logowithsearch">
       <div id="logocontainer">
@@ -24,9 +27,7 @@
             rumah -</em></a>
       </div>
       <div id="searchcontainer">
-
         <input id="searchinput" type="text" placeholder="Search...">
-
       </div>
     </div>
     <button>Sign In</button>
@@ -68,7 +69,11 @@
               <label class="filterlabel" for="Sertifikat">Sertifikat</label>
             </div>
             <div class="filterinputcontainer">
-              <input class="filterinput" type="text" name="certificate" placeholder="Sertifikat">
+              <select class="filterinput filterselectinput" id="inputcertificate" name="certificate">
+                <option disabled selected> Pilih Opsi Sertifikat ...</option>
+                <option value="SHM">SHM</option>
+                <option value="AJB">AJB</option>
+              </select>
             </div>
           </div>
           <div class="filtercontainer">
@@ -326,294 +331,363 @@
             </div>
           </div>
         </div>
-      </form>
+
     </nav>
     <div id="sidebarbottom">
       <button id="filterbutton">Filter Pencarian</button>
     </div>
+    </form>
+  </div>
+  <div id="rightsidebarcontainer" class="rightsidebarcontainerhide">
+    <div id="rightsidebarwithbutton">
+      <button id="rightsidebarbutton" class="rightsidebarbuttonhide">&blacktriangleleft;</button>
+      <div id="rightsidebarcontent">
+        <div class="housedetailtitle">
+          <p>Belum ada rumah yang dipilih</p>
+          <p>Pilih rumah dengan menekan tombol 'Lihat Info Rumah'</p>
+        </div>
+      </div>
+    </div>
   </div>
   <main id="maincontent">
-    <div id="mapcontainer">
+    <div id="mapbackground">
+      <div id="mapcontainer">
+      </div>
     </div>
+    <p id="pagenumber"></p>
+    <p id="filters"></p>
+    <p id="total"></p>
+    <input type="text" id="status" hidden>
     <div id="housecardcontainer">
-      <div class="housecard">
-        <div class="housecardthumbnail">
-          <div class="housecardimagelayout">
-            <img class="housecardimage" src="/files/1631091966049house.jpg">
-          </div>
-        </div>
-        <div class="housecardtitle">
-          <h2 class="housecardtitletext">Rumah Mewah</h2>
-        </div>
-        <div class="housecardprice">
-          Rp 1000000000
-        </div>
-        <div class="housecardspec">
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
-              &nbsp</span>m2
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
-          </div>
-        </div>
-        <hr>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Garasi</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Dapur</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Halaman</div>
-          </div>
-        </div>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&Cross; Kebun</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Makan</div>
-          </div>
-        </div>
-        <div class="housecardbuttoncontainer">
-          <button class="housecardbutton">Lihat Info
-            Rumah</button>
-        </div>
-      </div>
-      <div class="housecard">
-        <div class="housecardthumbnail">
-          <div class="housecardimagelayout">
-            <img class="housecardimage" src="/images/house.jpg">
-          </div>
-        </div>
-        <div class="housecardtitle">
-          <h2 class="housecardtitletext">Rumah Elit</h2>
-        </div>
-        <div class="housecardprice">
-          Rp 5000000000
-        </div>
-        <div class="housecardspec">
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
-              &nbsp</span>m2
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
-          </div>
-        </div>
-        <hr>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Garasi</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Dapur</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Halaman</div>
-          </div>
-        </div>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&Cross; Kebun</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Makan</div>
-          </div>
-        </div>
-        <div class="housecardbuttoncontainer">
-          <button class="housecardbutton">Lihat Info
-            Rumah</button>
-        </div>
-      </div>
-      <div class="housecard">
-        <div class="housecardthumbnail">
-          <div class="housecardimagelayout">
-            <img class="housecardimage" src="/files/1631001975779debby-hudson-FmCSSSGge-0-unsplash.jpg">
-          </div>
-        </div>
-        <div class="housecardtitle">
-          <h2 class="housecardtitletext">Rumah Minimalis</h2>
-        </div>
-        <div class="housecardprice">
-          Rp 3000000000
-        </div>
-        <div class="housecardspec">
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>1500
-              &nbsp</span>m2
-          </div>
-          <div class="housecardattribute">
-            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
-          </div>
-        </div>
-        <hr>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Garasi</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Dapur</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Halaman</div>
-          </div>
-        </div>
-        <div class="housecardspec">
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&Cross; Kebun</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Tamu</div>
-          </div>
-          <div class="housecardfeaturecontainer">
-            <div class="housecardfeature">&checkmark; Ruang Makan</div>
-          </div>
-        </div>
-        <div class="housecardbuttoncontainer">
-          <button class="housecardbutton">Lihat Info
-            Rumah</button>
-        </div>
-      </div>
+
     </div>
   </main>
-  <div id="rightsidebarcontainer">
-    <div id="rightsidebarcontent">
-      <div class="housedetailtitle">
-        <h3>Rumah Elit</h3>
-        <div>Rp 50000000000</div>
-      </div>
-      <div class="housedetailthumbnail">
-        <div class="housedetailimagelayout">
-          <img class="housedetailimage" src="/images/house.jpg">
-        </div>
-      </div>
-      <div class="housedetailcarousel">
 
-      </div>
-      <div class="housedetailmoretitle">
-        <h4 class="housedetailmoretitletext">Deskripsi</h4>
-      </div>
-      <div class="housedetaildescription">
-        <div class="housedetailattributecontainer">
-          <div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Tipe</strong><strong>: &nbsp</strong><span>50</span>
-            </div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Luas Tanah</strong><strong>:
-                &nbsp</strong><span>150</span>m2
-            </div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>SHM</span>
-            </div>
-          </div>
-          <div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Lantai</strong><strong>: &nbsp</strong><span>1</span>
-            </div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Kamar Tidur</strong><strong>: &nbsp</strong><span>4</span>
-            </div>
-            <div class="housedetailattribute">
-              <strong class="housedetailattributebasic">Kamar Mandi</strong><strong>: &nbsp</strong><span>2</span>
-            </div>
-          </div>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Fitur</strong><strong>: &nbsp</strong>
-        </div>
-        <div class="housedetailattribute">
-          <span>Garasi, Dapur, Kebun, Halaman, Ruang Tamu, Ruang Makan</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Alamat</strong><strong>: &nbsp</strong>
-        </div>
-        <div class="housedetailattribute">
-          <span>Jl. ABCD No. 123
-            Bandung 40000</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Lokasi</strong><strong>: &nbsp</strong>
-        </div>
-        <div class="housedetailmap">
-          <iframe width="50%" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=88.02246093750001%2C-15.029685756555674%2C137.06542968750003%2C10.055402736564236&amp;layer=mapnik&amp;marker=-2.5479878714713835%2C112.5439453125"></iframe><small><a
-              href="https://www.openstreetmap.org/?mlat=-2.548&amp;mlon=112.544#map=5/-2.548/112.544">View Larger
-              Map</a></small>
-        </div>
-      </div>
-      <div class="housedetailmoretitle">
-        <h4 class="housedetailmoretitletext">Spesifikasi</h4>
-      </div>
-      <div id="housedetailspec">
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Pondasi</strong><strong>: &nbsp</strong><span>Cakar Ayam</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Jenis Lantai</strong><strong>:
-            &nbsp</strong><span>Keramik</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Ukuran</strong><strong>: &nbsp</strong><span>50 x 50</span>
-        </div>
-
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Kusen</strong><strong>: &nbsp</strong><span>Alumunium</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Plafon</strong><strong>: &nbsp</strong><span>Gypsum</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Atap</strong><strong>: &nbsp</strong><span>Rangka Baja
-            Ringan</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>Bata Ringan,
-            Plaster, Bata Berat, Baja</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>Closet Duduk,
-            Shower</span>
-        </div>
-        <div class="housedetailattribute">
-          <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>1000 W</span>
-        </div>
-      </div>
-    </div>
   </div>
-  </div>
+  <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+  <script src="https://code.jquery.com/ui/1.13.0-rc.2/jquery-ui.min.js"></script>
   <script>
-    let mapcontent = L.map('mapcontainer').setView([-2.548, 118.037], 5)
+    let mapcontent = L.map('mapcontainer').setView([-2.548, 118.037], 3)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapcontent);
 
-    L.marker([-7, 108]).addTo(mapcontent).on('drag', () => {
-      console.log('dragged')
+    let layers = L.layerGroup([])
+
+    function read(page, filter, status) {
+      let cardcontainer = $('#housecardcontainer');
+      let url = `house?page=${page ? page : 1}${filter ? '&' + filter : ''}`;
+      console.log(url)
+      $.ajax({
+        url: url,
+        method: 'GET'
+      }).done((response) => {
+        let rs = response;
+        let data = rs.data;
+        console.log(data);
+        $('#page').empty();
+        $('#pagenumber').text(rs.page);
+        $('#total').text(rs.total);
+        $('#filters').text(rs.filters);
+        data.forEach((e) => {
+          let card = `<div class="housecard">
+        <div class="housecardthumbnail">
+          <div class="housecardimagelayout">
+            <img class="housecardimage" src="${e.images ? e.images[0].path : ''}" ${e.images ? '' : 'hidden'}>
+            ${e.images ? '' : '<img src="/images/logowhite.png">'}
+          </div>
+        </div>
+        <div class="housecardtitle">
+          <h2 class="housecardtitletext">${e.name}</h2>
+        </div>
+        <div class="housecardprice">
+          Rp ${e.price}
+        </div>
+        <div class="housecardspecbasic">
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Tipe</strong><strong>: &nbsp</strong><span>${e.type}</span>
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Luas Tanah</strong><strong>: &nbsp</strong><span>${e.landarea}
+              &nbsp</span>m2
+          </div>
+          <div class="housecardattribute">
+            <strong class="housecardattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>${e.certificate}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.carport ? '&checkmark;' : '&Cross;'} Garasi</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.kitchen ? '&checkmark;' : '&Cross;'} Dapur</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.yard ? '&checkmark;' : '&Cross;'} Halaman</div>
+          </div>
+        </div>
+        <div class="housecardspec">
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.garden ? '&checkmark;' : '&Cross;'} Kebun</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.livingroom ? '&checkmark;' : '&Cross;'} Ruang Tamu</div>
+          </div>
+          <div class="housecardfeaturecontainer">
+            <div class="housecardfeature">${e.diningroom ? '&checkmark;' : '&Cross;'} Ruang Makan</div>
+          </div>
+        </div>
+        <div class="housecardbuttoncontainer">
+          <input type="number" value="${e.id}" hidden>
+          ${status === 'selected' ? '<button class="housecardbuttoncompare">Bandingkan Pilihan Rumah</button>' : '<button class="housecardbutton">Lihat Info Rumah</button>'}
+        </div>
+      </div>`
+          cardcontainer.html(cardcontainer.html() + card);
+          layers.addLayer(L.marker([e.lat, e.long])).addTo(mapcontent)
+        })
+      })
+    }
+
+
+
+    $('#searchinput').keyup(function (event) {
+      layers.clearLayers()
+      $('#housecardcontainer').empty()
+      if (!$('#searchinput').val()) {
+        return read(1);
+      }
+      if (!isNaN(parseInt($('#searchinput').val()))) {
+        read(1, `checkprice=on&price=${$(this).val()}`)
+      } else {
+        let searchArr = $('#searchinput').val().split(' ')
+        if (searchArr.length === 2) {
+          if (searchArr[0].toLowerCase() === 'tipe' || searchArr[0].toLowerCase() === 'type') {
+            return read(1, `checktype=on&type=${searchArr[1]}`)
+          }
+        }
+        read(1, `checkname=on&name=${$(this).val()}`)
+      }
     })
 
-    L.marker([4, 98]).addTo(mapcontent)
+    $('#searchfilterbutton').click(function (event) {
+      event.preventDefault()
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainerhide', true);
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainershow', false);
+      $('#rightsidebarbutton').toggleClass('rightsidebarbuttonhide', true, 100)
+      $('#rightsidebarbutton').toggleClass('rightsidebarbuttonshow', false, 100)
+      $('#maincontent').removeClass('maincontentreduceright')
+      $('#rightsidebarbutton').text('◂')
+      $('#sidebarcontainer').toggle('slide', 'right', 200);
+      $('#maincontent').toggleClass('maincontentreduceleft')
+    })
 
-    L.marker([4, 100]).addTo(mapcontent)
+    $("#browse").on('submit', (event) => {
+      event.preventDefault();
+      layers.clearLayers()
+      $('#housecardcontainer').empty()
+      let formQuery = `&${$("#browse").serialize()}`;
+      console.log(formQuery)
+      read(1, formQuery);
+    })
 
+    $('#housecardcontainer').on('click', '.housecardbutton', function (event) {
+      $('.housecardbutton').addClass('housecardbuttoncompare');
+      $('.housecardbutton').text('Bandingkan Pilihan Rumah')
+      $('.housecardbuttoncompare').removeClass('housecardbutton');
+      $(this).removeClass('housecardbuttoncompare');
+      $(this).removeClass('housecardbutton');
+      $(this).addClass('housecardbuttonremove');
+      $(this).text('Hapus Pilihan Rumah');
+      $('#status').val('selected');
+      event.preventDefault()
+
+      let sidebarcontent = $('#rightsidebarcontent');
+      sidebarcontent.empty();
+      $.ajax({
+        url: `house/${$(this).prev().val()}`,
+        method: 'GET'
+      }).done((response) => {
+        let data = response;
+        console.log(data);
+        let housedetail = `
+<div class="housedetailtitle">
+  <h2>${data.name}</h2>
+</div>
+<div class="housedetailprice">
+  Rp ${data.price}
+</div>
+<div class="housedetailthumbnail">
+  <div class="housedetailimagelayout">
+    <img class="housedetailimage" src="${data.images ? data.images[0].path : ''}" ${data.images ? '' : 'hidden'}>
+            ${data.images ? '' : '<img class="housedetailimage" src="/images/logowhite.png">'}
+  </div>
+</div>
+<div class="housedetailcarousel">
+
+</div>
+<div class="housedetailmoretitle">
+  <h4 class="housedetailmoretitletext">Deskripsi</h4>
+  <button class="housedetailmorehidebutton" id="housedetailmoredescbutton">Hide</button>
+</div>
+<div id="housedetaildescription">
+  <div class="housedetailattributecontainer">
+    <div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Tipe</strong><strong>: &nbsp</strong><span>${data.type}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Luas Tanah</strong><strong>:
+          &nbsp</strong><span>${data.landarea}</span>m2
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>${data.certificate}</span>
+      </div>
+    </div>
+    <div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Lantai</strong><strong>: &nbsp</strong><span>${data.numfloor}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Kamar Tidur</strong><strong>: &nbsp</strong><span>${data.bedroom}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Kamar Mandi</strong><strong>: &nbsp</strong><span>${data.bathroom}</span>
+      </div>
+    </div>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Fitur</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailattribute">
+    <span>${data.carport ? data.carport + ', ' : ''}${data.kitchen ? data.kitchen + ', ' : ''}${data.garden ? data.garden + ', ' : ''}${data.yard ? data.yard + ', ' : ''}${data.livingroom ? data.livingroom + ', ' : ''}${data.diningroom ? data.diningroom : ''}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Alamat</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailattribute">
+    <span>${data.address}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Lokasi</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailmap">
+    <iframe width="50%" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=88.02246093750001%2C-15.029685756555674%2C137.06542968750003%2C10.055402736564236&amp;layer=mapnik&amp;marker=${data.lat}%2C${data.long}"></iframe><small><a
+        href="https://www.openstreetmap.org/?mlat=-2.548&amp;mlon=112.544#map=5/-2.548/112.544">View Larger
+        Map</a></small>
+  </div>
+</div>
+<div class="housedetailmoretitle">
+  <h4 class="housedetailmoretitletext">Spesifikasi</h4>
+  <button class="housedetailmorehidebutton" id="housedetailmorespecbutton">Hide</button>
+</div>
+<div id="housedetailspec">
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Pondasi</strong><strong>: &nbsp</strong><span>${data.foundation || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Jenis Lantai</strong><strong>:
+      &nbsp</strong><span>${data.floortype || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Ukuran</strong><strong>: &nbsp</strong><span>${data.floorlength ? data.floorlength + ' x ' + data.floorlength : 'Tidak ada data'} </span>
+  </div>
+
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Kusen</strong><strong>: &nbsp</strong><span>${data.jamb || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Plafon</strong><strong>: &nbsp</strong><span>${data.ceiling || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Atap</strong><strong>: &nbsp</strong><span>${data.roof || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>${data.wall[0] ? data.wall.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>${data.sanitary[0] ? data.sanitary.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>${data.electricity ? data.electricity + ' W' : 'Tidak ada data'}</span>
+  </div>
+</div>
+`
+        sidebarcontent.html(sidebarcontent.html() + housedetail);
+        $('#sidebarcontainer').hide('slide', 'right', 200);
+        $('#maincontent').removeClass('maincontentreduceleft')
+        $('#rightsidebarcontainer').toggleClass('rightsidebarcontainerhide', false, 100)
+        $('#rightsidebarcontainer').toggleClass('rightsidebarcontainershow', true, 100)
+        $('#rightsidebarbutton').toggleClass('rightsidebarbuttonhide', false, 100)
+        $('#rightsidebarbutton').toggleClass('rightsidebarbuttonshow', true, 100)
+        $('#rightsidebarbutton').text('▸')
+        $('#maincontent').toggleClass('maincontentreduceright')
+      }).fail(function (event) {
+        event.preventDefault()
+        let data = response;
+        console.log(data);
+        let housedetail = `
+<div class="housedetailtitle">
+  <h2>Data Gagal Ditampilkan</h2>
+</div>
+`
+        sidebarcontent.html(sidebarcontent.html() + housedetail);
+        $('#sidebarcontainer').hide('slide', 'right', 200);
+        $('#maincontent').removeClass('maincontentreduceleft')
+        $('#rightsidebarcontainer').toggle('slide', { direction: 'right' }, 200);
+        $('#maincontent').toggleClass('maincontentreduceright')
+      })
+    })
+
+    $('#rightsidebarbutton').click(function (event) {
+      event.preventDefault()
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainerhide', 100)
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainershow', 100)
+      $(this).toggleClass('rightsidebarbuttonhide', 100)
+      $(this).toggleClass('rightsidebarbuttonshow', 100)
+      $(this).text($(this).text() === '▸' ? '◂' : '▸')
+      $('#maincontent').toggleClass('maincontentreduceright');
+    })
+
+    $('#housedetailmoredescbutton').click(function (event) {
+      event.preventDefault()
+      $(this).text($(this).text() === 'Hide' ? 'Show' : 'Hide')
+      $('#housedetaildescription').toggle();
+      $('#housedetailmoredescbutton').toggleClass('housedetailmorehidebutton');
+      $('#housedetailmoredescbutton').toggleClass('housedetailmoreshowbutton');
+    })
+
+
+    $('#housedetailmorespecbutton').click(function (event) {
+      event.preventDefault()
+      $(this).text($(this).text() === 'Hide' ? 'Show' : 'Hide')
+      $('#housedetailspec').toggle();
+      $('#housedetailmorespecbutton').toggleClass('housedetailmorehidebutton');
+      $('#housedetailmorespecbutton').toggleClass('housedetailmoreshowbutton');
+    })
+
+    $(document).ready(() => {
+      $('#loadcontainer').hide();
+      $('#pagenumber').hide();
+      $('#total').hide();
+      $('#filters').hide();
+      read();
+    })
+    $(document).scroll(() => {
+      console.log($(document).height())
+      console.log($(document).scrollTop())
+      console.log($(window).height())
+      console.log($(window).scrollTop())
+      console.log($(window).height() + $(window).scrollTop());
+      if ($(document).height() - ($(window).height() + $(window).scrollTop()) < 10) {
+        console.log($('#housecardcontainer').children().length)
+        console.log($('#total').text())
+        if ($('#housecardcontainer').children().length < $('#total').text()) {
+          read(parseInt($('#pagenumber').text()) + 1, '', $('#status').val())
+        }
+      }
+    })
   </script>
 
 </body>
