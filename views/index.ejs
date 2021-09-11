@@ -497,6 +497,7 @@
       $('.housecardbuttoncompare').removeClass('housecardbutton');
       $(this).removeClass('housecardbuttoncompare');
       $(this).removeClass('housecardbutton');
+      $(this).addClass('housecardbuttonselected');
       $(this).addClass('housecardbuttonremove');
       $(this).text('Hapus Pilihan Rumah');
       $('#status').val('selected');
@@ -511,6 +512,7 @@
         let data = response;
         console.log(data);
         let housedetail = `
+        <div class="rightsidebarcontentcontainer">
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -560,7 +562,7 @@
     <strong class="housedetailattributebasic">Fitur</strong><strong>: &nbsp</strong>
   </div>
   <div class="housedetailattribute">
-    <span>${data.carport ? data.carport + ', ' : ''}${data.kitchen ? data.kitchen + ', ' : ''}${data.garden ? data.garden + ', ' : ''}${data.yard ? data.yard + ', ' : ''}${data.livingroom ? data.livingroom + ', ' : ''}${data.diningroom ? data.diningroom : ''}</span>
+    <span>${data.carport ? 'Garasi, ' : ''}${data.kitchen ? 'Dapur, ' : ''}${data.garden ? 'Kebun, ' : ''}${data.yard ? 'Halaman, ' : ''}${data.livingroom ? 'Ruang Tamu, ' : ''}${data.diningroom ? 'Ruang Makan' : ''}</span>
   </div>
   <div class="housedetailattribute">
     <strong class="housedetailattributebasic">Alamat</strong><strong>: &nbsp</strong>
@@ -604,14 +606,15 @@
     <strong class="housedetailattributebasic">Atap</strong><strong>: &nbsp</strong><span>${data.roof || 'Tidak ada data'}</span>
   </div>
   <div class="housedetailattribute">
-    <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>${data.wall[0] ? data.wall.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+    <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>${data.wall ? data.wall.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
   </div>
   <div class="housedetailattribute">
-    <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>${data.sanitary[0] ? data.sanitary.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+    <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>${data.sanitary ? data.sanitary.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
   </div>
   <div class="housedetailattribute">
     <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>${data.electricity ? data.electricity + ' W' : 'Tidak ada data'}</span>
   </div>
+</div>
 </div>
 `
         sidebarcontent.html(sidebarcontent.html() + housedetail);
@@ -622,7 +625,7 @@
         $('#rightsidebarbutton').toggleClass('rightsidebarbuttonhide', false, 100)
         $('#rightsidebarbutton').toggleClass('rightsidebarbuttonshow', true, 100)
         $('#rightsidebarbutton').text('▸')
-        $('#maincontent').toggleClass('maincontentreduceright')
+        $('#maincontent').toggleClass('maincontentreduceright', true)
       }).fail(function (event) {
         event.preventDefault()
         let data = response;
@@ -640,6 +643,153 @@
       })
     })
 
+
+    $('#housecardcontainer').on('click', '.housecardbuttoncompare', function (event) {
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare', true, 100)
+      $('#maincontent').toggleClass('maincontentcompare', true, 100)
+      $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare', true, 100);
+      if ($('.housecardbuttoncompareselected')) {
+        $('.housecardbuttoncompareselected').removeClass('housecardbuttonremove')
+        $('.housecardbuttoncompareselected').addClass('housecardbuttoncompare');
+        $('.housecardbuttoncompareselected').text('Bandingkan Pilihan Rumah')
+        $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected')
+      }
+      $(this).removeClass('housecardbuttoncompare');
+      $(this).addClass('housecardbuttoncompareselected');
+      $(this).addClass('housecardbuttonremove');
+      $(this).text('Hapus Pilihan Rumah');
+      $('#status').val('compare');
+      let sidebarcontent = $('#rightsidebarcontent');
+      $.ajax({
+        url: `house/${$(this).prev().val()}`,
+        method: 'GET'
+      }).done((response) => {
+        let data = response;
+        console.log(data);
+        let housedetail = `
+        <div class="rightsidebarcontentcontainer">
+<div class="housedetailtitle">
+  <h2>${data.name}</h2>
+</div>
+<div class="housedetailprice">
+  Rp ${data.price}
+</div>
+<div class="housedetailthumbnail">
+  <div class="housedetailimagelayout">
+    <img class="housedetailimage" src="${data.images ? data.images[0].path : ''}" ${data.images ? '' : 'hidden'}>
+            ${data.images ? '' : '<img class="housedetailimage" src="/images/logowhite.png">'}
+  </div>
+</div>
+<div class="housedetailcarousel">
+
+</div>
+<div class="housedetailmoretitle">
+  <h4 class="housedetailmoretitletext">Deskripsi</h4>
+  <button class="housedetailmorehidebutton" id="housedetailmoredescbutton">Hide</button>
+</div>
+<div id="housedetaildescription">
+  <div class="housedetailattributecontainer">
+    <div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Tipe</strong><strong>: &nbsp</strong><span>${data.type}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Luas Tanah</strong><strong>:
+          &nbsp</strong><span>${data.landarea}</span>m2
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Sertifikat</strong><strong>: &nbsp</strong><span>${data.certificate}</span>
+      </div>
+    </div>
+    <div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Lantai</strong><strong>: &nbsp</strong><span>${data.numfloor}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Kamar Tidur</strong><strong>: &nbsp</strong><span>${data.bedroom}</span>
+      </div>
+      <div class="housedetailattribute">
+        <strong class="housedetailattributebasic">Kamar Mandi</strong><strong>: &nbsp</strong><span>${data.bathroom}</span>
+      </div>
+    </div>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Fitur</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailattribute">
+    <span>${data.carport ? 'Garasi, ' : ''}${data.kitchen ? 'Dapur, ' : ''}${data.garden ? 'Kebun, ' : ''}${data.yard ? 'Halaman, ' : ''}${data.livingroom ? 'Ruang Tamu, ' : ''}${data.diningroom ? 'Ruang Makan' : ''}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Alamat</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailattribute">
+    <span>${data.address}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Lokasi</strong><strong>: &nbsp</strong>
+  </div>
+  <div class="housedetailmap">
+    <iframe width="50%" height="100" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=88.02246093750001%2C-15.029685756555674%2C137.06542968750003%2C10.055402736564236&amp;layer=mapnik&amp;marker=${data.lat}%2C${data.long}"></iframe><small><a
+        href="https://www.openstreetmap.org/?mlat=-2.548&amp;mlon=112.544#map=5/-2.548/112.544">View Larger
+        Map</a></small>
+  </div>
+</div>
+<div class="housedetailmoretitle">
+  <h4 class="housedetailmoretitletext">Spesifikasi</h4>
+  <button class="housedetailmorehidebutton" id="housedetailmorespecbutton">Hide</button>
+</div>
+<div id="housedetailspec">
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Pondasi</strong><strong>: &nbsp</strong><span>${data.foundation || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Jenis Lantai</strong><strong>:
+      &nbsp</strong><span>${data.floortype || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Ukuran</strong><strong>: &nbsp</strong><span>${data.floorlength ? data.floorlength + ' x ' + data.floorlength : 'Tidak ada data'} </span>
+  </div>
+
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Kusen</strong><strong>: &nbsp</strong><span>${data.jamb || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Plafon</strong><strong>: &nbsp</strong><span>${data.ceiling || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Atap</strong><strong>: &nbsp</strong><span>${data.roof || 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Dinding</strong><strong>: &nbsp </strong><span>${data.wall ? data.wall.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Sanitasi</strong><strong>: &nbsp </strong><span>${data.sanitary ? data.sanitary.reduce((prev, current) => prev + ', ' + current) : 'Tidak ada data'}</span>
+  </div>
+  <div class="housedetailattribute">
+    <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>${data.electricity ? data.electricity + ' W' : 'Tidak ada data'}</span>
+  </div>
+</div>
+</div>
+`
+        sidebarcontent.html(sidebarcontent.html() + housedetail);
+
+      }).fail(function (event) {
+        event.preventDefault()
+        let data = response;
+        console.log(data);
+        let housedetail = `
+<div class="housedetailtitle">
+  <h2>Data Gagal Ditampilkan</h2>
+</div>
+`
+        sidebarcontent.html(sidebarcontent.html() + housedetail);
+
+      })
+
+    })
+
+
     $('#rightsidebarbutton').click(function (event) {
       event.preventDefault()
       $('#rightsidebarcontainer').toggleClass('rightsidebarcontainerhide', 100)
@@ -648,6 +798,12 @@
       $(this).toggleClass('rightsidebarbuttonshow', 100)
       $(this).text($(this).text() === '▸' ? '◂' : '▸')
       $('#maincontent').toggleClass('maincontentreduceright');
+
+      if ($('#status').val() === 'compare') {
+        $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
+        $('#maincontent').toggleClass('maincontentcompare')
+        $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
+      }
     })
 
     $('#housedetailmoredescbutton').click(function (event) {

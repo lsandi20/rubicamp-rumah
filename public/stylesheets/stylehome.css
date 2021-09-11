@@ -428,6 +428,14 @@ option {
   width: 30vw;
 }
 
+.maincontentcompare {
+  padding-right: 60vw;
+}
+
+.rightsidebarcontainercompare {
+  width: 60vw;
+}
+
 #rightsidebarwithbutton {
   display: flex;
   flex-direction: row-reverse;
@@ -460,13 +468,23 @@ option {
 
 
 #rightsidebarcontent {
-  height: 100vh;
   padding-top: 100px;
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  direction: ltr;
+}
+
+.rightsidebarcontentcontainer {
+  display: flex;
   flex-direction: column;
   direction: ltr;
+}
+
+.rightsidebarbuttoncompare {
+  right: 60vw;
 }
 
 h3 {
