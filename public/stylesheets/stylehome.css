@@ -395,6 +395,12 @@ option {
 
 .housecardbuttonremove {
   background-color: rgb(252, 59, 59) !important; 
+  width: 100%;
+}
+
+.housecardbuttonremove:hover {
+  background-color: rgb(136, 34, 34) !important; 
+  width: 100%;
 }
 
 .housecardbuttoncompare {
@@ -494,6 +500,22 @@ h3 {
 h2 {
   margin: 0px;
 }
+
+.housedetailremovebuttoncontainer {
+  display: flex; 
+  justify-content: flex-end;
+}
+
+.housedetailbuttonremove {
+  background-color: rgb(252, 59, 59) !important; 
+  width: 50px;
+}
+
+.housedetailbuttonremove:hover {
+  background-color: rgb(143, 34, 34) !important; 
+  width: 50px;
+}
+
 .housedetailtitle {
   display: flex;
   flex-direction: column;
@@ -524,9 +546,9 @@ h2 {
 }
 
 .housedetailmorehidebutton {
-    background-color: rgb(252, 59, 59);
-    color: #ffff;
-    border: none;
+    background-color: #ffff;
+    color: rgb(252, 59, 59);
+    border: 2px solid rgb(252, 59, 59);
     font-size: 10px;
     margin-left: 10px;
     padding-left: 10px;
@@ -535,6 +557,7 @@ h2 {
 
 .housedetailmorehidebutton:hover {
   background-color: rgb(117, 33, 33);
+  border: 2px solid rgb(117, 33, 33);
   color: #ffff;
 }
 

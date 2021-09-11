@@ -513,6 +513,9 @@
         console.log(data);
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarselected">
+        <div class="housedetailremovebuttoncontainer">
+          <button class="housedetailbuttonremove housedetailremoveselected">-</button>
+        </div>
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -671,6 +674,9 @@
         console.log(data);
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarcompare">
+          <div class="housedetailremovebuttoncontainer">
+          <button class="housedetailbuttonremove housedetailremovecompare">-</button>
+        </div>
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -817,6 +823,8 @@
         $('.rightsidebarcompare').removeClass('rightsidebarcompare');
         $('.housecardbuttoncompareselected').addClass('housecardbuttonselected');
         $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected');
+        $('.housedetailremovecompare').addClass('housedetailremoveselected')
+        $('.housedetailremovecompare').addClass('housedetailremovecompare')
         $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
         $('#maincontent').toggleClass('maincontentcompare')
         $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
@@ -832,6 +840,50 @@
       $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
       $('#maincontent').toggleClass('maincontentcompare')
       $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
+      $('#status').val('selected')
+    })
+
+    $('#rightsidebarcontent').on('click', '.housedetailremoveselected', function (event) {
+      $('.rightsidebarselected').remove();
+      if ($('#rightsidebarcontent').children().length === 0) {
+        $('#rightsidebarcontent').html(` <div class="housedetailtitle">
+          <p>Belum ada rumah yang dipilih</p>
+          <p>Pilih rumah dengan menekan tombol 'Lihat Info Rumah'</p>
+        </div>`)
+        $('.housecardbuttonselected').removeClass('housecardbuttonremove')
+        $('.housecardbuttonselected').addClass('housecardbutton')
+        $('.housecardbuttonselected').text('Lihat Info Rumah');
+        $('.housecardbuttonselected').removeClass('housecardbuttonselected');
+        $('.housecardbuttoncompare').text('Lihat Info Rumah');
+        $('.housecardbuttoncompare').addClass('housecardbutton')
+        $('.housecardbuttoncompare').removeClass('housecardbuttoncompare');
+        $('#status').val('')
+      } else {
+        $('.housecardbuttonselected').removeClass('housecardbuttonremove')
+        $('.housecardbuttonselected').addClass('housecardbuttoncompare')
+        $('.housecardbuttonselected').text('Bandingkan Pilihan Rumah');
+        $('.housecardbuttonselected').removeClass('housecardbuttonselected');
+        $('.rightsidebarcompare').addClass('rightsidebarselected');
+        $('.rightsidebarcompare').removeClass('rightsidebarcompare');
+        $('.housecardbuttoncompareselected').addClass('housecardbuttonselected');
+        $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected');
+        $('.housedetailremovecompare').addClass('housedetailremoveselected')
+        $('.housedetailremovecompare').addClass('housedetailremovecompare')
+        $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare')
+        $('#maincontent').toggleClass('maincontentcompare')
+        $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare');
+      }
+    })
+
+    $('#rightsidebarcontent').on('click', '.housedetailremovecompare', function (event) {
+      $('.rightsidebarcompare').remove();
+      $('.housecardbuttoncompareselected').removeClass('housecardbuttonremove')
+      $('.housecardbuttoncompareselected').addClass('housecardbuttoncompare')
+      $('.housecardbuttoncompareselected').text('Bandingkan Pilihan Rumah');
+      $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected');
+      $('#rightsidebarcontainer').toggleClass('rightsidebarcontainercompare', false)
+      $('#maincontent').toggleClass('maincontentcompare', false)
+      $('#rightsidebarbutton').toggleClass('rightsidebarbuttoncompare', false);
       $('#status').val('selected')
     })
 
