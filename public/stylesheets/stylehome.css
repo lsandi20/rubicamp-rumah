@@ -504,18 +504,29 @@ h2 {
 
 .housedetailremovebuttoncontainer {
   display: flex; 
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .housedetailbuttonremove {
   background-color: rgb(252, 59, 59) !important; 
-  width: 50px;
+  width: 150px;
 }
 
 .housedetailbuttonremove:hover {
   background-color: rgb(143, 34, 34) !important; 
-  width: 50px;
+  width: 150px;
 }
+
+.housedetailbuttondiscussionmenu {
+  background-color: rgb(19, 141, 255); 
+  width: 100px;
+}
+
+.housedetailbuttondiscussionmenu:hover {
+  background-color:rgb(14, 85, 151); 
+  width: 100px;
+}
+
 
 .housedetailtitle {
   display: flex;
