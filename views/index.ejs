@@ -438,7 +438,7 @@
         </div>
         <div class="housecardbuttoncontainer">
           <input type="number" value="${e.id}" hidden>
-          ${status === 'selected' ? '<button class="housecardbuttoncompare">Bandingkan Pilihan Rumah</button>' : '<button class="housecardbutton">Lihat Info Rumah</button>'}
+          ${status === 'selected' || status === 'compare' ? '<button class="housecardbuttoncompare">Bandingkan Pilihan Rumah</button>' : '<button class="housecardbutton">Lihat Info Rumah</button>'}
         </div>
       </div>`
           cardcontainer.html(cardcontainer.html() + card);
@@ -652,7 +652,7 @@
         $('.housecardbuttoncompareselected').text('Bandingkan Pilihan Rumah')
         $('.housecardbuttoncompareselected').removeClass('housecardbuttoncompareselected')
       }
-      if ($('.rightsidebarcontent').children().length > 1) {
+      if ($('#rightsidebarcontent').children().length > 1) {
         $('.rightsidebarcompare').remove();
       }
       $(this).removeClass('housecardbuttoncompare');
