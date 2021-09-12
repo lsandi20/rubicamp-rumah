@@ -106,4 +106,22 @@ router.get('/house/:id', (req, res, next) => {
     res.status(500).json(err)
   })
 })
+
+
+router.get('/house/discussion/:id', (req, res, next) => {
+  models.Message.findAll({
+    where: {
+      HouseId: req.params.id
+    },
+    include: [{
+      model: models.User,
+      attributes: ['firstName']
+    }]
+  }).then((result) => {
+    res.json(result);
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 module.exports = router;
