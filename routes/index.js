@@ -76,7 +76,7 @@ router.get('/house', function (req, res, next) {
     where: query,
     limit: 3,
     offset: req.query.page ? (req.query.page - 1) * 3 : 0,
-    order: [[sort.prop, sort.rule]]
+    order: [[sort.prop, sort.rule], ['createdAt', 'ASC']]
   }).then((data) => {
     models.House.count({ where: query })
       .then((total) => {
@@ -116,12 +116,36 @@ router.get('/house/discussion/:id', (req, res, next) => {
     include: [{
       model: models.User,
       attributes: ['firstName']
-    }]
+    }],
+    order: [['createdAt', 'ASC']]
   }).then((result) => {
     res.json(result);
   }).catch(err => {
     res.status(500).json(err)
   })
 })
+
+router.post('/house/discussion/:id', (req, res, next) => {
+  models.Message.create({
+    UserId: req.session.user.id,
+    HouseId: req.params.id,
+    message: req.body.message
+  }).then((data) => {
+    models.User.findOne({
+      attributes: ['firstName'],
+      where: {
+        id: data.UserId
+      }
+    }).then((userdata) => {
+      data.dataValues.firstName = userdata.firstName
+      res.json(data)
+    }).catch(err => {
+      res.status(500).json(err)
+    })
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
 
 module.exports = router;

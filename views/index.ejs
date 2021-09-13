@@ -30,7 +30,12 @@
         <input id="searchinput" type="text" placeholder="Search...">
       </div>
     </div>
-    <button>Sign In</button>
+    <input id="userid" type="number" hidden>
+    <div id="userinfo">
+      <p id="userinfoname"></p>
+    </div>
+    <button id="controlpanelbutton">Control Panel</button>
+    <button class="buttonsignin">Sign In</button>
   </nav>
   <div id="sidebarcontainer">
     <nav id="sidebar">
@@ -509,9 +514,13 @@
         let data = response;
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarselected">
-        <div class="housedetailremovebuttoncontainer">
-          <button class="housedetailbuttonremove housedetailremoveselected">-</button>
-        </div>
+          <div class="housedetailremovebuttoncontainer">
+            <input class="houseuserid" type="number" value="${data.User.id}" hidden>
+            <input class="houseid" type="number" value="${data.id}" hidden>
+            <button class="housedetailbuttondiscussionmenu">Diskusi</button>
+            <button class="housedetailbuttonremove housedetailremoveselected">Hapus
+              Pilihan</button>
+          </div>
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -527,6 +536,7 @@
 <div class="housedetailcarousel">
 
 </div>
+<div class="housedetailcontent">
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Deskripsi</h4>
   <button class="housedetailmorehidebutton housedetailmoredescbutton" >Hide</button>
@@ -614,6 +624,8 @@
     <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>${data.electricity ? data.electricity + ' W' : 'Tidak ada data'}</span>
   </div>
 </div>
+</div>
+<div class="discussioncontainer"></div>
 </div>
 `
         sidebarcontent.html(sidebarcontent.html() + housedetail);
@@ -669,8 +681,12 @@
         let housedetail = `
         <div class="rightsidebarcontentcontainer rightsidebarcompare">
           <div class="housedetailremovebuttoncontainer">
-          <button class="housedetailbuttonremove housedetailremovecompare">-</button>
-        </div>
+            <input class="houseuserid" type="number" value="${data.User.id}" hidden>
+            <input class="houseid" type="number" value="${data.id}" hidden>
+            <button class="housedetailbuttondiscussionmenu">Diskusi</button>
+            <button class="housedetailbuttonremove housedetailremovecompare">Hapus
+              Pilihan</button>
+          </div>
 <div class="housedetailtitle">
   <h2>${data.name}</h2>
 </div>
@@ -686,6 +702,7 @@
 <div class="housedetailcarousel">
 
 </div>
+<div class="housedetailcontent">
 <div class="housedetailmoretitle">
   <h4 class="housedetailmoretitletext">Deskripsi</h4>
   <button class="housedetailmorehidebutton housedetailmoredescbutton" >Hide</button>
@@ -773,6 +790,8 @@
     <strong class="housedetailattributebasic">Listrik</strong><strong>: &nbsp</strong><span>${data.electricity ? data.electricity + ' W' : 'Tidak ada data'}</span>
   </div>
 </div>
+</div>
+<div class="discussioncontainer"></div>
 </div>
 `
         sidebarcontent.html(sidebarcontent.html() + housedetail);
@@ -912,6 +931,104 @@
       $(this).toggleClass('housedetailmoreshowbutton');
     })
 
+    $('#rightsidebarcontent').on('click', '.housedetailbuttondiscussionmenu', function (event) {
+      event.preventDefault()
+      $(this).parent().parent().find('.housedetailcontent').toggle('slide');
+      let discussioncontainer = $(this).parent().parent().find('.discussioncontainer')
+      discussioncontainer.toggle('slide');
+      $(this).text($(this).text() === 'Diskusi' ? 'Detail' : 'Diskusi')
+      if (discussioncontainer.children().length < 1) {
+        $.ajax({
+          url: `house/discussion/${$(this).prev().val()}`,
+          method: 'GET'
+        }).done((response) => {
+          let discussioncontent = `<div class="discussioncontent">`
+          if (response.length > 0) {
+            response.forEach((data) => {
+              if (parseInt($(this).prev().prev().val()) === data.UserId) {
+                discussioncontent += `
+            <div class="discussionitem">
+                <p class="discussionuser">${data.User.firstName} <em>-Pengiklan-</em></p>
+                <div class="discussionbar discussionbaradmin">
+                  <p>${data.message}</p>
+                </div>
+              </div>
+            `
+              } else {
+                discussioncontent += `
+            <div class="discussionitem">
+                <p class="discussionuser">${data.User.firstName}</p>
+                <div class="discussionbar">
+                  <p>${data.message}</p>
+                </div>
+              </div>
+            `
+              }
+
+            })
+          }
+
+
+          if (!$('#userid').val()) {
+            discussioncontent += ` </div>
+            <div class="discussionmessagecontent">
+              <p>Login untuk ikut berdiskusi</p>
+            </div>`
+          } else {
+            discussioncontent += ` </div>
+            <div class="discussionmessagecontent">
+              <textarea class="discussioninput" placeholder="Tulis pesan.."></textarea>
+              <div class="discussionmessagebuttoncontainer">
+                <button class="discussionmessagebutton">Kirim Pesan</button>
+              </div>
+            </div>`
+          }
+          discussioncontainer.html(discussioncontainer.html() + discussioncontent);
+        }).fail((event) => {
+          discussioncontainer.html(`<div>
+  <p>Data Diskusi Gagal Ditampilkan</p>
+</div>`)
+        })
+
+      }
+    })
+
+
+    $('#rightsidebarcontent').on('click', '.discussionmessagebutton', function (event) {
+      let message = $(this).parent().prev().val()
+      $(this).parent().prev().val('')
+      let houseid = $(this).closest('.rightsidebarcontentcontainer').find('.houseid').val();
+      $.ajax({
+        url: `house/discussion/${houseid}`,
+        method: 'POST',
+        data: {
+          message
+        }
+      }).done((data) => {
+        let newMessage = $(this).closest('.discussioncontainer').find('.discussioncontent');
+        if (parseInt($(this).closest('.rightsidebarcontentcontainer').find('.houseuserid').val()) === data.UserId) {
+          newMessage.append(`
+          <div class="discussionitem">
+                <p class="discussionuser">${data.firstName} <em>-Pengiklan-</em></p>
+                <div class="discussionbar discussionbaradmin">
+                  <p>${data.message}</p>
+                </div>
+              </div>
+          `
+          )
+        } else {
+          newMessage.append(`
+          <div class="discussionitem">
+                <p class="discussionuser">${data.firstName}</p>
+                <div class="discussionbar">
+                  <p>${data.message}</p>
+                </div>
+              </div>
+          `
+          )
+        }
+      })
+    })
 
     $('#housedetailmorespecbutton').click(function (event) {
       event.preventDefault()
@@ -921,12 +1038,43 @@
       $('#housedetailmorespecbutton').toggleClass('housedetailmoreshowbutton');
     })
 
+    $('#controlpanelbutton').click(function (event) {
+      window.location.href = '/admin'
+    })
+
+    $('#navbar').on('click', '.buttonsignin', function (event) {
+      event.preventDefault()
+      window.location.href = '/admin/login'
+    })
+
+    $('#navbar').on('click', '.buttonsignout', function (event) {
+      event.preventDefault()
+      $.ajax({
+        url: '/admin/login/logout',
+        method: 'GET',
+      }).done((res) => {
+        window.location.href = '/'
+      })
+    })
+
     $(document).ready(() => {
       $('#loadcontainer').hide();
       $('#pagenumber').hide();
       $('#total').hide();
       $('#filters').hide();
       read();
+      $.ajax({
+        url: '/admin/login/userinfo',
+        method: 'GET',
+      }).done((res) => {
+        $('#userid').val(res.id)
+        $('#userinfoname').text(res.firstName)
+        $('#userinfo').show();
+        $('#controlpanelbutton').show()
+        $('.buttonsignin').addClass('buttonsignout')
+        $('.buttonsignin').text('Sign Out')
+        $('.buttonsignin').removeClass('buttonsignin')
+      })
     })
     $(document).scroll(() => {
       if ($(document).height() - ($(window).height() + $(window).scrollTop()) < 10) {

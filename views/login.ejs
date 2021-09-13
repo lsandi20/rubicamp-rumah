@@ -53,7 +53,7 @@
         method: 'POST',
         contentType: 'application/json'
       }).done(() => {
-        window.location.href = ''
+        window.location.href = '/'
       }).fail((res) => {
         $('.alert').html(res.responseJSON.message).toggle('slow').delay(600).toggle('slow')
       })
